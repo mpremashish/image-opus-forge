@@ -455,10 +455,10 @@ const MerchantActivationDashboard = () => {
   }
 
   return (
-    <div className="p-4 md:p-6 bg-background min-h-screen">
-      <div className="max-w-7xl mx-auto animate-fade-in">
-        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
-          <h1 className="text-2xl md:text-3xl font-bold text-foreground tracking-tight">{dashboardData.title}</h1>
+    <div className="p-6 md:p-10 lg:p-12 bg-background min-h-screen">
+      <div className="w-full animate-fade-in">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
+          <h1 className="text-3xl md:text-4xl font-bold text-foreground tracking-tight">{dashboardData.title}</h1>
           <select 
             value={selectedMonth} 
             onChange={(e) => setSelectedMonth(e.target.value)} 
@@ -468,33 +468,33 @@ const MerchantActivationDashboard = () => {
           </select>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
-          <div className="bg-primary rounded-xl p-5 shadow-card hover:shadow-card-hover transition-all">
-            <div className="text-sm text-primary-foreground/80 font-medium">Total Signups</div>
-            <div className="text-3xl font-bold text-primary-foreground mt-1">{formatNumber(currentMonthData?.total_signups)}</div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+          <div className="bg-primary rounded-xl p-6 shadow-card hover:shadow-card-hover transition-all">
+            <div className="text-base text-primary-foreground/80 font-medium">Total Signups</div>
+            <div className="text-4xl font-bold text-primary-foreground mt-2">{formatNumber(currentMonthData?.total_signups)}</div>
           </div>
-          <div className="bg-success rounded-xl p-5 shadow-card hover:shadow-card-hover transition-all">
-            <div className="text-sm text-success-foreground/80 font-medium">Activated (90D)</div>
-            <div className="text-3xl font-bold text-success-foreground mt-1">{formatNumber(totals.activated)}</div>
-            <div className="text-xs text-success-foreground/70 mt-1">{((totals.activated / currentMonthData?.total_signups) * 100).toFixed(1)}% of signups</div>
+          <div className="bg-success rounded-xl p-6 shadow-card hover:shadow-card-hover transition-all">
+            <div className="text-base text-success-foreground/80 font-medium">Activated (90D)</div>
+            <div className="text-4xl font-bold text-success-foreground mt-2">{formatNumber(totals.activated)}</div>
+            <div className="text-sm text-success-foreground/70 mt-2">{((totals.activated / currentMonthData?.total_signups) * 100).toFixed(1)}% of signups</div>
           </div>
-          <div className="bg-info rounded-xl p-5 shadow-card hover:shadow-card-hover transition-all">
-            <div className="text-sm text-info-foreground/80 font-medium">Receive Txn Attempted</div>
-            <div className="text-3xl font-bold text-info-foreground mt-1">{formatNumber(totals.receive)}</div>
-            <div className="text-xs text-info-foreground/70 mt-1">{((totals.receive / currentMonthData?.total_signups) * 100).toFixed(1)}% of signups</div>
+          <div className="bg-info rounded-xl p-6 shadow-card hover:shadow-card-hover transition-all">
+            <div className="text-base text-info-foreground/80 font-medium">Receive Txn Attempted</div>
+            <div className="text-4xl font-bold text-info-foreground mt-2">{formatNumber(totals.receive)}</div>
+            <div className="text-sm text-info-foreground/70 mt-2">{((totals.receive / currentMonthData?.total_signups) * 100).toFixed(1)}% of signups</div>
           </div>
-          <div className="bg-warning rounded-xl p-5 shadow-card hover:shadow-card-hover transition-all">
-            <div className="text-sm text-warning-foreground/80 font-medium">Platform Interaction</div>
-            <div className="text-3xl font-bold text-warning-foreground mt-1">{formatNumber(totals.interacted)}</div>
-            <div className="text-xs text-warning-foreground/70 mt-1">{((totals.interacted / currentMonthData?.total_signups) * 100).toFixed(1)}% of signups</div>
+          <div className="bg-warning rounded-xl p-6 shadow-card hover:shadow-card-hover transition-all">
+            <div className="text-base text-warning-foreground/80 font-medium">Platform Interaction</div>
+            <div className="text-4xl font-bold text-warning-foreground mt-2">{formatNumber(totals.interacted)}</div>
+            <div className="text-sm text-warning-foreground/70 mt-2">{((totals.interacted / currentMonthData?.total_signups) * 100).toFixed(1)}% of signups</div>
           </div>
         </div>
 
-        <div className="bg-card rounded-xl shadow-card p-6 mb-6 border border-border">
-          <h2 className="text-xl font-semibold text-card-foreground mb-2">Merchant Activation Funnel</h2>
-          <p className="text-sm text-muted-foreground mb-4">Click bars with subcategories to drill down</p>
+        <div className="bg-card rounded-xl shadow-card p-8 mb-8 border border-border">
+          <h2 className="text-2xl font-semibold text-card-foreground mb-3">Merchant Activation Funnel</h2>
+          <p className="text-base text-muted-foreground mb-6">Click bars with subcategories to drill down</p>
           
-          <ResponsiveContainer width="100%" height={500}>
+          <ResponsiveContainer width="100%" height={600}>
             <BarChart data={funnelChartData} layout="vertical">
               <XAxis type="number" tick={{ fill: 'hsl(220, 10%, 45%)' }} />
               <YAxis type="category" dataKey="name" width={200} tick={{fontSize: 11, fontWeight: 500, fill: 'hsl(220, 20%, 25%)'}} />
@@ -519,35 +519,35 @@ const MerchantActivationDashboard = () => {
           </ResponsiveContainer>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div className="bg-card rounded-xl shadow-card p-6 border border-border">
-            <h3 className="text-lg font-semibold text-card-foreground mb-4">Activation Status (90 Days)</h3>
-            <div className="space-y-3">
-              <div className="flex justify-between items-center p-4 bg-success/10 rounded-lg border border-success/20">
-                <span className="text-card-foreground font-medium">Activated within 30D</span>
-                <span className="font-bold text-success text-lg">{formatNumber(currentMonthData?.funnel_stages.find(s => s.stage === 'activated_within_30d')?.count)}</span>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="bg-card rounded-xl shadow-card p-8 border border-border">
+            <h3 className="text-xl font-semibold text-card-foreground mb-6">Activation Status (90 Days)</h3>
+          <div className="space-y-4">
+              <div className="flex justify-between items-center p-5 bg-success/10 rounded-lg border border-success/20">
+                <span className="text-card-foreground font-medium text-lg">Activated within 30D</span>
+                <span className="font-bold text-success text-2xl">{formatNumber(currentMonthData?.funnel_stages.find(s => s.stage === 'activated_within_30d')?.count)}</span>
               </div>
-              <div className="flex justify-between items-center p-4 bg-success/5 rounded-lg border border-success/10">
-                <span className="text-card-foreground font-medium">Activated b/w 30D-90D</span>
-                <span className="font-bold text-success/80 text-lg">{formatNumber(currentMonthData?.funnel_stages.find(s => s.stage === 'activated_between_30d_90d')?.count)}</span>
+              <div className="flex justify-between items-center p-5 bg-success/5 rounded-lg border border-success/10">
+                <span className="text-card-foreground font-medium text-lg">Activated b/w 30D-90D</span>
+                <span className="font-bold text-success/80 text-2xl">{formatNumber(currentMonthData?.funnel_stages.find(s => s.stage === 'activated_between_30d_90d')?.count)}</span>
               </div>
             </div>
           </div>
 
-          <div className="bg-card rounded-xl shadow-card p-6 border border-border">
-            <h3 className="text-lg font-semibold text-card-foreground mb-4">Transaction Activity</h3>
-            <div className="space-y-3">
-              <div className="flex justify-between items-center p-4 bg-info/10 rounded-lg border border-info/20">
-                <span className="text-card-foreground font-medium">Receive Txn Attempted</span>
-                <span className="font-bold text-info text-lg">{formatNumber(totals.receive)}</span>
+          <div className="bg-card rounded-xl shadow-card p-8 border border-border">
+            <h3 className="text-xl font-semibold text-card-foreground mb-6">Transaction Activity</h3>
+            <div className="space-y-4">
+              <div className="flex justify-between items-center p-5 bg-info/10 rounded-lg border border-info/20">
+                <span className="text-card-foreground font-medium text-lg">Receive Txn Attempted</span>
+                <span className="font-bold text-info text-2xl">{formatNumber(totals.receive)}</span>
               </div>
-              <div className="flex justify-between items-center p-4 bg-destructive/5 rounded-lg border border-destructive/10">
-                <span className="text-card-foreground font-medium">Only Sent Activity</span>
-                <span className="font-bold text-destructive/70 text-lg">{formatNumber(totals.possiblePersonal)}</span>
+              <div className="flex justify-between items-center p-5 bg-destructive/5 rounded-lg border border-destructive/10">
+                <span className="text-card-foreground font-medium text-lg">Only Sent Activity</span>
+                <span className="font-bold text-destructive/70 text-2xl">{formatNumber(totals.possiblePersonal)}</span>
               </div>
-              <div className="flex justify-between items-center p-4 bg-muted rounded-lg border border-border">
-                <span className="text-card-foreground font-medium">Login Only</span>
-                <span className="font-bold text-muted-foreground text-lg">{formatNumber(totals.interacted)}</span>
+              <div className="flex justify-between items-center p-5 bg-muted rounded-lg border border-border">
+                <span className="text-card-foreground font-medium text-lg">Login Only</span>
+                <span className="font-bold text-muted-foreground text-2xl">{formatNumber(totals.interacted)}</span>
               </div>
             </div>
           </div>
