@@ -191,7 +191,7 @@ const MerchantActivationDashboard = () => {
     if (!currentMonthData) return { activated: 0, receive: 0, possiblePersonal: 0, interacted: 0 };
     
     const activated = currentMonthData.funnel_stages.find(s => s.stage === 'activated_between_30d_90d')?.count || 0;
-    const receive = currentMonthData.funnel_stages.find(s => s.stage === 'receive_txn_attempted_within_90d')?.count || 0;
+    const receive = currentMonthData.funnel_stages.find(s => s.stage === 'receive_txn_attempted_within_30d')?.count || 0;
     const possiblePersonal = currentMonthData.funnel_stages.find(s => s.stage === 'possible_personal_account')?.count || 0;
     const interacted = currentMonthData.funnel_stages.find(s => s.stage === 'login_attempted')?.count || 0;
     
