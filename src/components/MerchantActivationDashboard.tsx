@@ -38,9 +38,13 @@ const MerchantActivationDashboard = () => {
       {
         month: "2025-11",
         month_label: "November",
-        total_signups: 447197,
+        total_signups: 778646,
+        fraud_count: 331449,
+        non_fraud_count: 447197,
         funnel_stages: [
-          { stage: "signups", label: "#Signups", count: 447197 },
+          { stage: "signups", label: "#Signups", count: 778646 },
+          { stage: "fraud", label: "Fraud", count: 331449, percentage: 42.57, color: "#ef4444" },
+          { stage: "non_fraud", label: "Non-Fraud", count: 447197, percentage: 57.43, color: "#22c55e" },
           { stage: "activated_within_30d", label: "Activated within 30D", count: 47067, percentage: 10.5249, color: "#90EE90" },
           { stage: "activated_between_30d_90d", label: "Activated b/w 30D-90D", count: 47283, percentage: 10.5732, color: "#90EE90" },
           { stage: "receive_txn_attempted_within_90d", label: "Receive Txn Attempted within 90D", count: 20825, percentage: 4.6568, color: "#ADD8E6" },
@@ -90,9 +94,13 @@ const MerchantActivationDashboard = () => {
       {
         month: "2025-10",
         month_label: "October",
-        total_signups: 456259,
+        total_signups: 622940,
+        fraud_count: 166681,
+        non_fraud_count: 456259,
         funnel_stages: [
-          { stage: "signups", label: "#Signups", count: 456259 },
+          { stage: "signups", label: "#Signups", count: 622940 },
+          { stage: "fraud", label: "Fraud", count: 166681, percentage: 26.76, color: "#ef4444" },
+          { stage: "non_fraud", label: "Non-Fraud", count: 456259, percentage: 73.24, color: "#22c55e" },
           { stage: "activated_within_30d", label: "Activated within 30D", count: 42780, percentage: 9.3763, color: "#90EE90" },
           { stage: "activated_between_30d_90d", label: "Activated b/w 30D-90D", count: 49618, percentage: 10.875, color: "#90EE90" },
           { stage: "receive_txn_attempted_within_90d", label: "Receive Txn Attempted within 90D", count: 23017, percentage: 5.0447, color: "#ADD8E6" },
