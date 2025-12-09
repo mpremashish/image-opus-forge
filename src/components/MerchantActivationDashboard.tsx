@@ -33,7 +33,7 @@ const MerchantActivationDashboard = () => {
   }), []);
 
   const dashboardData = useMemo(() => ({
-    title: "Merchant Activation Funnel - First 90 Days from Signup",
+    title: "Merchant Activation Funnel",
     months: [
       {
         month: "2025-11",
