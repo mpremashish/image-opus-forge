@@ -7417,7 +7417,7 @@ const MerchantActivationDashboard = () => {
           non_fraud_count: 447382,
           net_signups: 278824,
           funnel_stages: [
-            { stage: "signups", label: "#Signups", count: 778646 },
+            { stage: "signups", label: "Total Signups", count: 778646 },
             { stage: "fraud", label: "Fraud", count: 331264, percentage: 42.54, color: "#ef4444" },
             { stage: "non_fraud", label: "Non-Fraud", count: 447382, percentage: 57.46, color: "#22c55e" },
             {
@@ -7599,7 +7599,7 @@ const MerchantActivationDashboard = () => {
           non_fraud_count: 456168,
           net_signups: 280324,
           funnel_stages: [
-            { stage: "signups", label: "#Signups", count: 622940 },
+            { stage: "signups", label: "Total Signups", count: 622940 },
             { stage: "fraud", label: "Fraud", count: 166772, percentage: 26.77, color: "#ef4444" },
             { stage: "non_fraud", label: "Non-Fraud", count: 456168, percentage: 73.23, color: "#22c55e" },
             {
