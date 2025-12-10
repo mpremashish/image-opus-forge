@@ -7453,7 +7453,18 @@ const MerchantActivationDashboard = () => {
         ],
       },
       "2025-10": {
-        "2_login": [],
+        "2_login": [
+          { pu_grouped: "https://www.paypal.com/mep/dashboard", cnt: 11440 },
+          { pu_grouped: "https://www.paypal.com/businessmanage/profile/personalInformation/unifiedsettings/email", cnt: 3779 },
+          { pu_grouped: "https://www.paypal.com/businessmanage/account/accountAccess", cnt: 3744 },
+          { pu_grouped: "https://www.paypal.com/businessmanage/profile/loginSecurity", cnt: 3570 },
+          { pu_grouped: "https://www.paypal.com/myaccount/money/flow/banks/new?flow=eyJyZXR1cm5VcmwiOiIvbWVwL2Rhc2hib2FyZCIsImNhbmNlbFVybCI6Ii9tZXAvZGFzaGJvYXJkIiwiZmxhZ3MiOlsiaXNJbk1vbmV5V2l0aENob2ljZSJdfQ==", cnt: 2814 },
+          { pu_grouped: "https://www.paypal.com/businessmanage/profile/personalInformation", cnt: 2796 },
+          { pu_grouped: "cshelp_pages", cnt: 2684 },
+          { pu_grouped: "https://www.paypal.com/mep/fundsmanagement/money", cnt: 2576 },
+          { pu_grouped: "https://www.paypal.com/businessmanage/account/accountPreferences", cnt: 2149 },
+          { pu_grouped: "https://www.paypal.com/", cnt: 2122 },
+        ],
         "3_4_login": [
           { pu_grouped: "https://www.paypal.com/mep/dashboard", cnt: 5338 },
           { pu_grouped: "https://www.paypal.com/businessmanage/account/accountAccess", cnt: 2412 },
@@ -7823,7 +7834,7 @@ const MerchantActivationDashboard = () => {
               color: "#D3D3D3",
               breakdown: {
                 "1_login": { count: 41797, color: "#FF8C00", label: "1 Login", percentage: 14.91 },
-                "2_login": { count: 12066, color: "#006400", label: "2 Login", percentage: 4.3 },
+                "2_login": { count: 12066, color: "#006400", label: "2 Login", percentage: 4.3, has_page_urls: true },
                 "3_4_login": { count: 5520, color: "#4169E1", label: "3-4 Login", percentage: 1.97, has_page_urls: true },
                 "5_10_login": { count: 1626, color: "#800080", label: "5-10 Login", percentage: 0.58, has_page_urls: true },
                 more_than_10_logins: { count: 161, color: "#228B22", label: ">10 Logins", percentage: 0.06 },
