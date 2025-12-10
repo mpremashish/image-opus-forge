@@ -7454,7 +7454,18 @@ const MerchantActivationDashboard = () => {
       },
       "2025-10": {
         "2_login": [],
-        "3_4_login": [],
+        "3_4_login": [
+          { pu_grouped: "https://www.paypal.com/mep/dashboard", cnt: 5338 },
+          { pu_grouped: "https://www.paypal.com/businessmanage/account/accountAccess", cnt: 2412 },
+          { pu_grouped: "https://www.paypal.com/businessmanage/profile/loginSecurity", cnt: 2221 },
+          { pu_grouped: "cshelp_pages", cnt: 1965 },
+          { pu_grouped: "https://www.paypal.com/businessmanage/profile/personalInformation/unifiedsettings/email", cnt: 1829 },
+          { pu_grouped: "https://www.paypal.com/myaccount/money/flow/banks/new?flow=eyJyZXR1cm5VcmwiOiIvbWVwL2Rhc2hib2FyZCIsImNhbmNlbFVybCI6Ii9tZXAvZGFzaGJvYXJkIiwiZmxhZ3MiOlsiaXNJbk1vbmV5V2l0aENob2ljZSJdfQ==", cnt: 1797 },
+          { pu_grouped: "https://www.paypal.com/businessmanage/profile/personalInformation", cnt: 1758 },
+          { pu_grouped: "https://www.paypal.com/mep/fundsmanagement/money", cnt: 1700 },
+          { pu_grouped: "https://www.paypal.com/mep/merchantapps/businesstools", cnt: 1352 },
+          { pu_grouped: "https://www.paypal.com/", cnt: 1335 },
+        ],
         "5_10_login": [],
       },
     }),
@@ -7802,7 +7813,7 @@ const MerchantActivationDashboard = () => {
               breakdown: {
                 "1_login": { count: 41797, color: "#FF8C00", label: "1 Login", percentage: 14.91 },
                 "2_login": { count: 12066, color: "#006400", label: "2 Login", percentage: 4.3 },
-                "3_4_login": { count: 5520, color: "#4169E1", label: "3-4 Login", percentage: 1.97 },
+                "3_4_login": { count: 5520, color: "#4169E1", label: "3-4 Login", percentage: 1.97, has_page_urls: true },
                 "5_10_login": { count: 1626, color: "#800080", label: "5-10 Login", percentage: 0.58 },
                 more_than_10_logins: { count: 161, color: "#228B22", label: ">10 Logins", percentage: 0.06 },
               },
