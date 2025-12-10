@@ -55,7 +55,7 @@ const MerchantActivationDashboard = () => {
           { stage: "activated_between_30d_90d", label: "Activated b/w 30D-90D", count: 46386, percentage: 16.64, color: "#90EE90" },
           {
             stage: "receive_txn_attempted_within_30d",
-            label: "Receive Txn < 30D",
+            label: "Attempted to Receive Txn <= 30D",
             count: 17731,
             percentage: 6.36,
             color: "#87CEEB",
@@ -116,7 +116,7 @@ const MerchantActivationDashboard = () => {
           { stage: "activated_between_30d_90d", label: "Activated b/w 30D-90D", count: 48111, percentage: 17.16, color: "#90EE90" },
           {
             stage: "receive_txn_attempted_within_30d",
-            label: "Receive Txn < 30D",
+            label: "Attempted to Receive Txn <= 30D",
             count: 17315,
             percentage: 6.18,
             color: "#87CEEB",
@@ -497,7 +497,7 @@ const MerchantActivationDashboard = () => {
             <div className="text-sm text-success-foreground/70 mt-2">{((totals.activated / currentMonthData?.total_signups) * 100).toFixed(1)}% of signups</div>
           </div>
           <div className="bg-info rounded-xl p-6 shadow-card hover:shadow-card-hover transition-all">
-            <div className="text-base text-info-foreground/80 font-medium">Receive Txn &lt; 30D</div>
+            <div className="text-base text-info-foreground/80 font-medium">Attempted to Receive Txn &lt;= 30D</div>
             <div className="text-4xl font-bold text-info-foreground mt-2">{formatNumber(totals.receive)}</div>
             <div className="text-sm text-info-foreground/70 mt-2">{((totals.receive / currentMonthData?.total_signups) * 100).toFixed(1)}% of signups</div>
           </div>
@@ -556,7 +556,7 @@ const MerchantActivationDashboard = () => {
             <h3 className="text-xl font-semibold text-card-foreground mb-6">Transaction Activity</h3>
             <div className="space-y-4">
               <div className="flex justify-between items-center p-5 bg-info/10 rounded-lg border border-info/20">
-                <span className="text-card-foreground font-medium text-lg">Receive Txn &lt; 30D</span>
+                <span className="text-card-foreground font-medium text-lg">Attempted to Receive Txn &lt;= 30D</span>
                 <span className="font-bold text-info text-2xl">{formatNumber(totals.receive)}</span>
               </div>
               <div className="flex justify-between items-center p-5 bg-destructive/5 rounded-lg border border-destructive/10">
