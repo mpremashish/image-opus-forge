@@ -8319,7 +8319,7 @@ const MerchantActivationDashboard = () => {
                 type="category"
                 dataKey="name"
                 width={200}
-                tick={{ fontSize: 11, fontWeight: 500, fill: "hsl(220, 20%, 25%)" }}
+                tick={{ fontSize: 11, fontWeight: 700, fill: "hsl(220, 20%, 25%)" }}
               />
               <Tooltip
                 formatter={(v) => formatNumber(v)}
