@@ -488,23 +488,24 @@ const MerchantActivationDashboard = () => {
           </div>
           <div className="bg-[hsl(120,60%,40%)] rounded-xl p-6 shadow-card hover:shadow-card-hover transition-all">
             <div className="text-base text-white/80 font-medium">Net Signups</div>
+            <div className="text-xs text-white/60 mt-1">Passed risk checks (Allowed + Lifted)</div>
             <div className="text-4xl font-bold text-white mt-2">{formatNumber(totals.netSignups)}</div>
             <div className="text-sm text-white/70 mt-2">{((totals.netSignups / currentMonthData?.total_signups) * 100).toFixed(1)}% of signups</div>
           </div>
           <div className="bg-success rounded-xl p-6 shadow-card hover:shadow-card-hover transition-all">
             <div className="text-base text-success-foreground/80 font-medium">Activated (90D)</div>
             <div className="text-4xl font-bold text-success-foreground mt-2">{formatNumber(totals.activated)}</div>
-            <div className="text-sm text-success-foreground/70 mt-2">{((totals.activated / currentMonthData?.total_signups) * 100).toFixed(1)}% of signups</div>
+            <div className="text-sm text-success-foreground/70 mt-2">{((totals.activated / totals.netSignups) * 100).toFixed(1)}% of Net Signups</div>
           </div>
           <div className="bg-info rounded-xl p-6 shadow-card hover:shadow-card-hover transition-all">
             <div className="text-base text-info-foreground/80 font-medium">Attempted to Receive Txn &lt;= 30D</div>
             <div className="text-4xl font-bold text-info-foreground mt-2">{formatNumber(totals.receive)}</div>
-            <div className="text-sm text-info-foreground/70 mt-2">{((totals.receive / currentMonthData?.total_signups) * 100).toFixed(1)}% of signups</div>
+            <div className="text-sm text-info-foreground/70 mt-2">{((totals.receive / totals.netSignups) * 100).toFixed(1)}% of Net Signups</div>
           </div>
           <div className="bg-warning rounded-xl p-6 shadow-card hover:shadow-card-hover transition-all">
             <div className="text-base text-warning-foreground/80 font-medium">Platform Interaction</div>
             <div className="text-4xl font-bold text-warning-foreground mt-2">{formatNumber(totals.interacted)}</div>
-            <div className="text-sm text-warning-foreground/70 mt-2">{((totals.interacted / currentMonthData?.total_signups) * 100).toFixed(1)}% of signups</div>
+            <div className="text-sm text-warning-foreground/70 mt-2">{((totals.interacted / totals.netSignups) * 100).toFixed(1)}% of Net Signups</div>
           </div>
         </div>
 
