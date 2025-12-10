@@ -8177,7 +8177,7 @@ const MerchantActivationDashboard = () => {
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
               <div>
-                <ResponsiveContainer width="100%" height={400}>
+                <ResponsiveContainer width="100%" height={500}>
                   <PieChart>
                     <Pie
                       data={subcategoryData}
@@ -8202,10 +8202,15 @@ const MerchantActivationDashboard = () => {
                       }}
                     />
                     <Legend
-                      layout="vertical"
-                      align="right"
-                      verticalAlign="middle"
-                      wrapperStyle={{ paddingLeft: 20, maxHeight: 350, overflowY: 'auto' }}
+                      layout="horizontal"
+                      align="center"
+                      verticalAlign="bottom"
+                      wrapperStyle={{ 
+                        paddingTop: 20, 
+                        maxWidth: '100%',
+                        overflowX: 'auto',
+                        overflowY: 'hidden'
+                      }}
                       formatter={(v) => {
                         const item = subcategoryData.find((d) => d.label === v);
                         return `${v} (${item?.percentage?.toFixed(2)}%)`;
