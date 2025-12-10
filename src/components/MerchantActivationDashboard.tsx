@@ -39,49 +39,55 @@ const MerchantActivationDashboard = () => {
         month: "2025-11",
         month_label: "November",
         total_signups: 778646,
-        fraud_count: 331449,
-        non_fraud_count: 447197,
+        fraud_count: 331264,
+        non_fraud_count: 447382,
+        net_signups: 278824,
         funnel_stages: [
           { stage: "signups", label: "#Signups", count: 778646 },
-          { stage: "fraud", label: "Fraud", count: 331449, percentage: 42.57, color: "#ef4444" },
-          { stage: "non_fraud", label: "Non-Fraud", count: 447197, percentage: 57.43, color: "#22c55e" },
-          { stage: "activated_within_30d", label: "Activated within 30D", count: 47067, percentage: 10.5249, color: "#90EE90" },
-          { stage: "activated_between_30d_90d", label: "Activated b/w 30D-90D", count: 47283, percentage: 10.5732, color: "#90EE90" },
+          { stage: "fraud", label: "Fraud", count: 331264, percentage: 42.54, color: "#ef4444" },
+          { stage: "non_fraud", label: "Non-Fraud", count: 447382, percentage: 57.46, color: "#22c55e" },
+          { stage: "non_fraud_declined", label: "Non fraud Declined", count: 4865, percentage: 0.62, color: "#22c55e" },
+          { stage: "non_fraud_pending", label: "Non fraud Pending", count: 163693, percentage: 21.02, color: "#22c55e" },
+          { stage: "non_fraud_allowed", label: "Non fraud Allowed", count: 165211, percentage: 21.22, color: "#22c55e" },
+          { stage: "non_fraud_lifted", label: "Non fraud Lifted", count: 113613, percentage: 14.59, color: "#22c55e" },
+          { stage: "net_signups", label: "Net-Signups (Nonfraud = Allowed + lifted)", count: 278824, percentage: 35.81, color: "#4bc522" },
+          { stage: "activated_within_30d", label: "Activated within 30D", count: 46029, percentage: 16.51, color: "#90EE90" },
+          { stage: "activated_between_30d_90d", label: "Activated b/w 30D-90D", count: 46386, percentage: 16.64, color: "#90EE90" },
           {
             stage: "receive_txn_attempted_within_30d",
             label: "Receive Txn < 30D",
-            count: 20671,
-            percentage: 4.6223,
+            count: 17731,
+            percentage: 6.36,
             color: "#87CEEB",
             sub_category: [
-              { stage: "ec_attempted_in_30D", label: "EC Txn Attempted within 30D", count: 15220, percentage: 3.4034, has_error_codes: true },
-              { stage: "wps_attempt_30d_1_0", label: "WPS Txn Attempted within 30D", count: 12, percentage: 0.0027 },
-              { stage: "invoice_attempt_30d_1_0", label: "Invoice Txn Attempted within 30D", count: 996, percentage: 0.22, has_error_codes: true },
-              { stage: "subscription_attempt_30d_1_0", label: "Subscription Txn Attempted within 30D", count: 453, percentage: 0.1 },
-              { stage: "p2p_attempt_30d_1_0", label: "P2P Txn Attempted within 30D", count: 457, percentage: 0.1 },
-              { stage: "other_attempt_30d_1_0", label: "Other Txn Attempted within 30D", count: 73, percentage: 0.02 },
-              { stage: "p2p_attempt_30d_personal", label: "P2P Txn (Personal) within 30D", count: 4177, percentage: 0.93 }
+              { stage: "ec_attempted_in_30D", label: "EC Txn Attempted within 30D", count: 13303, percentage: 4.77, has_error_codes: true },
+              { stage: "wps_attempt_30d_1_0", label: "WPS Txn Attempted within 30D", count: 9, percentage: 0.0 },
+              { stage: "invoice_attempt_30d_1_0", label: "Invoice Txn Attempted within 30D", count: 971, percentage: 0.35, has_error_codes: true },
+              { stage: "subscription_attempt_30d_1_0", label: "Subscription Txn Attempted within 30D", count: 410, percentage: 0.15 },
+              { stage: "p2p_attempt_30d_1_0", label: "P2P Txn Attempted within 30D", count: 438, percentage: 0.16 },
+              { stage: "other_attempt_30d_1_0", label: "Other Txn Attempted within 30D", count: 65, percentage: 0.02 },
+              { stage: "p2p_attempt_30d_personal", label: "P2P Txn (Personal) within 30D", count: 3231, percentage: 1.16 }
             ]
           },
-          { stage: "successful_sent_activity", label: "Successful Sent Activity (No Receive)", count: 13872, percentage: 3.1, color: "#FFB6C1" },
-          { stage: "attempted_sent_activity", label: "Attempted Sent Activity (No Receive)", count: 48251, percentage: 10.79, color: "#FFC0CB" },
-          { stage: "possible_personal_account", label: "Possible Personal Account (Only Sent Activity)", count: 48759, percentage: 10.9, color: "#FFB6D8" },
-          { stage: "confirmed_identity", label: "Confirmed Identity (No Receive or Sent)", count: 49970, percentage: 11.17, color: "#DDA0DD" },
-          { stage: "confirmed_identity_and_attempted", label: "Confirmed Identity and Attempted", count: 8858, percentage: 1.98, color: "#D8BFD8" },
-          { stage: "confirmed_identity_and_sent", label: "Confirmed Identity and Sent", count: 22894, percentage: 5.12, color: "#E6D5E6" },
-          { stage: "contacted_gcs", label: "Contacted GCS", count: 10347, percentage: 2.31, color: "#F0E68C" },
+          { stage: "successful_sent_activity", label: "Successful Sent Activity (No Receive)", count: 14007, percentage: 5.02, color: "#FFB6C1" },
+          { stage: "attempted_sent_activity", label: "Attempted Sent Activity (No Receive)", count: 37072, percentage: 13.3, color: "#FFC0CB" },
+          { stage: "possible_personal_account", label: "Possible Personal Account (Only Sent Activity)", count: 37583, percentage: 13.48, color: "#FFB6D8" },
+          { stage: "confirmed_identity", label: "Confirmed Identity (No Receive or Sent)", count: 41591, percentage: 14.92, color: "#DDA0DD" },
+          { stage: "confirmed_identity_and_attempted", label: "Confirmed Identity and Attempted", count: 8364, percentage: 3, color: "#D8BFD8" },
+          { stage: "confirmed_identity_and_sent", label: "Confirmed Identity and Sent", count: 17286, percentage: 6.2, color: "#E6D5E6" },
+          { stage: "contacted_gcs", label: "Contacted GCS", count: 4638, percentage: 1.66, color: "#F0E68C" },
           {
             stage: "login_attempted",
             label: "Login Attempted (No Receive or Sent Activity)",
-            count: 129284,
-            percentage: 28.91,
+            count: 84531,
+            percentage: 30.15,
             color: "#D3D3D3",
             breakdown: {
-              "1_login": { count: 81821, color: "#FF8C00", label: "1 Login", percentage: 18.3 },
-              "2_login": { count: 26413, color: "#006400", label: "2 Login", percentage: 5.91 },
-              "3_4_login": { count: 14716, color: "#4169E1", label: "3-4 Login", percentage: 3.29 },
-              "5_10_login": { count: 5668, color: "#800080", label: "5-10 Login", percentage: 1.27 },
-              "more_than_10_logins": { count: 666, color: "#228B22", label: ">10 Logins", percentage: 0.15 }
+              "1_login": { count: 50867, color: "#FF8C00", label: "1 Login", percentage: 18.15 },
+              "2_login": { count: 18153, color: "#006400", label: "2 Login", percentage: 6.48 },
+              "3_4_login": { count: 10623, color: "#4169E1", label: "3-4 Login", percentage: 3.79 },
+              "5_10_login": { count: 4376, color: "#800080", label: "5-10 Login", percentage: 1.56 },
+              "more_than_10_logins": { count: 512, color: "#228B22", label: ">10 Logins", percentage: 0.18 }
             }
           }
         ],
@@ -94,62 +100,62 @@ const MerchantActivationDashboard = () => {
         month: "2025-10",
         month_label: "October",
         total_signups: 622940,
-        fraud_count: 166681,
-        non_fraud_count: 456259,
+        fraud_count: 166772,
+        non_fraud_count: 456168,
+        net_signups: 280324,
         funnel_stages: [
           { stage: "signups", label: "#Signups", count: 622940 },
-          { stage: "fraud", label: "Fraud", count: 166681, percentage: 26.76, color: "#ef4444" },
-          { stage: "non_fraud", label: "Non-Fraud", count: 456259, percentage: 73.24, color: "#22c55e" },
-          { stage: "activated_within_30d", label: "Activated within 30D", count: 42780, percentage: 9.3763, color: "#90EE90" },
-          { stage: "activated_between_30d_90d", label: "Activated b/w 30D-90D", count: 49618, percentage: 10.875, color: "#90EE90" },
+          { stage: "fraud", label: "Fraud", count: 166772, percentage: 26.77, color: "#ef4444" },
+          { stage: "non_fraud", label: "Non-Fraud", count: 456168, percentage: 73.23, color: "#22c55e" },
+          { stage: "non_fraud_declined", label: "Non fraud Declined", count: 4748, percentage: 0.76, color: "#22c55e" },
+          { stage: "non_fraud_pending", label: "Non fraud Pending", count: 171096, percentage: 27.47, color: "#22c55e" },
+          { stage: "non_fraud_allowed", label: "Non fraud Allowed", count: 162732, percentage: 26.12, color: "#22c55e" },
+          { stage: "non_fraud_lifted", label: "Non fraud Lifted", count: 117592, percentage: 18.88, color: "#22c55e" },
+          { stage: "net_signups", label: "Net-Signups (Nonfraud = Allowed + lifted)", count: 280324, percentage: 61.45, color: "#4bc522" },
+          { stage: "activated_within_30d", label: "Activated within 30D", count: 41098, percentage: 14.66, color: "#90EE90" },
+          { stage: "activated_between_30d_90d", label: "Activated b/w 30D-90D", count: 48111, percentage: 17.16, color: "#90EE90" },
           {
             stage: "receive_txn_attempted_within_30d",
             label: "Receive Txn < 30D",
-            count: 20509,
-            percentage: 4.495,
+            count: 17315,
+            percentage: 6.18,
             color: "#87CEEB",
             sub_category: [
-              { stage: "ec_attempted_in_30D", label: "EC Txn Attempted within 30D", count: 15197, percentage: 3.3308, has_error_codes: true },
-              { stage: "wps_attempt_30d_1_0", label: "WPS Txn Attempted within 30D", count: 4, percentage: 0.0009 },
-              { stage: "invoice_attempt_30d_1_0", label: "Invoice Txn Attempted within 30D", count: 1053, percentage: 0.2308, has_error_codes: true },
-              { stage: "subscription_attempt_30d_1_0", label: "Subscription Txn Attempted within 30D", count: 426, percentage: 0.0997 },
-              { stage: "p2p_attempt_30d_1_0", label: "P2P Txn Attempted within 30D", count: 432, percentage: 0.0934 },
-              { stage: "other_attempt_30d_1_0", label: "Other Txn Attempted within 30D", count: 61, percentage: 0.0134 },
-              { stage: "p2p_attempt_30d_personal", label: "P2P Txn (Personal) within 30D", count: 4011, percentage: 0.8791 }
+              { stage: "ec_attempted_in_30D", label: "EC Txn Attempted within 30D", count: 13163, percentage: 4.7, has_error_codes: true },
+              { stage: "wps_attempt_30d_1_0", label: "WPS Txn Attempted within 30D", count: 4, percentage: 0.0 },
+              { stage: "invoice_attempt_30d_1_0", label: "Invoice Txn Attempted within 30D", count: 1020, percentage: 0.36, has_error_codes: true },
+              { stage: "subscription_attempt_30d_1_0", label: "Subscription Txn Attempted within 30D", count: 380, percentage: 0.14 },
+              { stage: "p2p_attempt_30d_1_0", label: "P2P Txn Attempted within 30D", count: 391, percentage: 0.14 },
+              { stage: "other_attempt_30d_1_0", label: "Other Txn Attempted within 30D", count: 52, percentage: 0.02 },
+              { stage: "p2p_attempt_30d_personal", label: "P2P Txn (Personal) within 30D", count: 2927, percentage: 1.04 }
             ]
           },
-          { stage: "successful_sent_activity", label: "Successful Sent Activity (No Receive)", count: 17350, percentage: 3.8027, color: "#FFB6C1" },
-          { stage: "attempted_sent_activity", label: "Attempted Sent Activity (No Receive)", count: 57631, percentage: 12.6312, color: "#FFC0CB" },
-          { stage: "possible_personal_account", label: "Possible Personal Account (Only Sent Activity)", count: 58650, percentage: 12.8545, color: "#FFB6D8" },
-          { stage: "confirmed_identity", label: "Confirmed Identity (No Receive or Sent)", count: 50058, percentage: 10.9714, color: "#DDA0DD" },
-          { stage: "confirmed_identity_and_attempted", label: "Confirmed Identity and Attempted", count: 9805, percentage: 1.9666, color: "#D8BFD8" },
-          { stage: "confirmed_identity_and_sent", label: "Confirmed Identity and Sent", count: 26750, percentage: 2.149, color: "#E6D5E6" },
-          { stage: "contacted_gcs", label: "Contacted GCS", count: 12204, percentage: 2.6748, color: "#F0E68C" },
+          { stage: "successful_sent_activity", label: "Successful Sent Activity (No Receive)", count: 17280, percentage: 6.16, color: "#FFB6C1" },
+          { stage: "attempted_sent_activity", label: "Attempted Sent Activity (No Receive)", count: 42130, percentage: 15.03, color: "#FFC0CB" },
+          { stage: "possible_personal_account", label: "Possible Personal Account (Only Sent Activity)", count: 43130, percentage: 15.39, color: "#FFB6D8" },
+          { stage: "confirmed_identity", label: "Confirmed Identity (No Receive or Sent)", count: 41310, percentage: 14.74, color: "#DDA0DD" },
+          { stage: "confirmed_identity_and_attempted", label: "Confirmed Identity and Attempted", count: 9207, percentage: 3.28, color: "#D8BFD8" },
+          { stage: "confirmed_identity_and_sent", label: "Confirmed Identity and Sent", count: 19644, percentage: 7.01, color: "#E6D5E6" },
+          { stage: "contacted_gcs", label: "Contacted GCS", count: 4829, percentage: 1.72, color: "#F0E68C" },
           {
             stage: "login_attempted",
             label: "Login Attempted (No Receive or Sent Activity)",
-            count: 101060,
-            percentage: 22.1497,
+            count: 61170,
+            percentage: 21.82,
             color: "#D3D3D3",
             breakdown: {
-              "1_login": { count: 71654, color: "#FF8C00", label: "1 Login", percentage: 15.7047 },
-              "2_login": { count: 18648, color: "#006400", label: "2 Login", percentage: 4.0872 },
-              "3_4_login": { count: 8254, color: "#4169E1", label: "3-4 Login", percentage: 1.8091 },
-              "5_10_login": { count: 2298, color: "#800080", label: "5-10 Login", percentage: 0.5037 },
-              "more_than_10_logins": { count: 206, color: "#228B22", label: ">10 Logins", percentage: 0.0452 }
+              "1_login": { count: 41797, color: "#FF8C00", label: "1 Login", percentage: 14.91 },
+              "2_login": { count: 12066, color: "#006400", label: "2 Login", percentage: 4.3 },
+              "3_4_login": { count: 5520, color: "#4169E1", label: "3-4 Login", percentage: 1.97 },
+              "5_10_login": { count: 1626, color: "#800080", label: "5-10 Login", percentage: 0.58 },
+              "more_than_10_logins": { count: 161, color: "#228B22", label: ">10 Logins", percentage: 0.06 }
             }
           }
         ],
         ec_error_codes: (errorCodesByMonth[selectedMonth]?.ec || []).map(item => ({ code: item.code, count: item.counts })),
         invoice_error_codes: (errorCodesByMonth[selectedMonth]?.invoice || []).map(item => ({ code: item.code, count: item.counts })),
-        ec_failure_reasons: [
-          {mth:"2025-11-01",cnt:8130,last_intrnl_err_code:"#",failure_reason:"Login page seen fallout without error"},
-          {mth:"2025-11-01",cnt:3875,last_intrnl_err_code:"#",failure_reason:"Top of funnel dropoff"}
-        ],
-        invoice_failure_reasons: [
-          {mth:"2025-11-01",cnt:383,last_intrnl_err_code:"#",failure_reason:"Login page seen fallout without error"},
-          {mth:"2025-11-01",cnt:227,last_intrnl_err_code:"#",failure_reason:"Top of funnel dropoff"}
-        ]
+        ec_failure_reasons: (failureReasonsByMonth[selectedMonth]?.ec || []).map(item => ({ mth: item.mth, cnt: item.cnt, last_intrnl_err_code: item.last_intrnl_err_code, failure_reason: item.failure_reason })),
+        invoice_failure_reasons: (failureReasonsByMonth[selectedMonth]?.invoice || []).map(item => ({ mth: item.mth, cnt: item.cnt, last_intrnl_err_code: item.last_intrnl_err_code, failure_reason: item.failure_reason })),
       }
     ]
   }), [errorCodesByMonth, selectedMonth]);
@@ -188,14 +194,15 @@ const MerchantActivationDashboard = () => {
   }, [currentMonthData]);
 
   const getCategoryTotals = () => {
-    if (!currentMonthData) return { activated: 0, receive: 0, possiblePersonal: 0, interacted: 0 };
+    if (!currentMonthData) return { activated: 0, receive: 0, possiblePersonal: 0, interacted: 0, netSignups: 0 };
     
     const activated = currentMonthData.funnel_stages.find(s => s.stage === 'activated_between_30d_90d')?.count || 0;
     const receive = currentMonthData.funnel_stages.find(s => s.stage === 'receive_txn_attempted_within_30d')?.count || 0;
     const possiblePersonal = currentMonthData.funnel_stages.find(s => s.stage === 'possible_personal_account')?.count || 0;
     const interacted = currentMonthData.funnel_stages.find(s => s.stage === 'login_attempted')?.count || 0;
+    const netSignups = currentMonthData.net_signups || 0;
     
-    return { activated, receive, possiblePersonal, interacted };
+    return { activated, receive, possiblePersonal, interacted, netSignups };
   };
 
   const handleBarClick = (data) => {
@@ -474,10 +481,15 @@ const MerchantActivationDashboard = () => {
           </select>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6 mb-8">
           <div className="bg-primary rounded-xl p-6 shadow-card hover:shadow-card-hover transition-all">
             <div className="text-base text-primary-foreground/80 font-medium">Total Signups</div>
             <div className="text-4xl font-bold text-primary-foreground mt-2">{formatNumber(currentMonthData?.total_signups)}</div>
+          </div>
+          <div className="bg-[hsl(120,60%,40%)] rounded-xl p-6 shadow-card hover:shadow-card-hover transition-all">
+            <div className="text-base text-white/80 font-medium">Net Signups</div>
+            <div className="text-4xl font-bold text-white mt-2">{formatNumber(totals.netSignups)}</div>
+            <div className="text-sm text-white/70 mt-2">{((totals.netSignups / currentMonthData?.total_signups) * 100).toFixed(1)}% of signups</div>
           </div>
           <div className="bg-success rounded-xl p-6 shadow-card hover:shadow-card-hover transition-all">
             <div className="text-base text-success-foreground/80 font-medium">Activated (90D)</div>
