@@ -6,6 +6,7 @@ const MerchantActivationDashboard = () => {
   const [drilldownStage, setDrilldownStage] = useState(null);
   const [errorCodeView, setErrorCodeView] = useState(null);
   const [failureReasonView, setFailureReasonView] = useState(null);
+  const [loginPageUrlView, setLoginPageUrlView] = useState(null);
 
   // Error codes data organized by month
   const errorCodesByMonth = useMemo(
@@ -7405,6 +7406,32 @@ const MerchantActivationDashboard = () => {
     [],
   );
 
+  // Login page URLs data organized by month and login category
+  const loginPageUrlsByMonth = useMemo(
+    () => ({
+      "2025-11": {
+        "3_4_login": [
+          { pu_grouped: "https://www.paypal.com/mep/dashboard", cnt: 10222 },
+          { pu_grouped: "https://www.paypal.com/businessmanage/account/accountAccess", cnt: 3643 },
+          { pu_grouped: "https://www.paypal.com/businessmanage/profile/personalInformation/unifiedsettings/email", cnt: 3238 },
+          { pu_grouped: "https://www.paypal.com/businessmanage/profile/loginSecurity", cnt: 3047 },
+          { pu_grouped: "https://www.paypal.com/myaccount/money/flow/banks/new?flow=eyJyZXR1cm5VcmwiOiIvbWVwL2Rhc2hib2FyZCIsImNhbmNlbFVybCI6Ii9tZXAvZGFzaGJvYXJkIiwiZmxhZ3MiOlsiaXNJbk1vbmV5V2l0aENob2ljZSJdfQ==", cnt: 3035 },
+          { pu_grouped: "https://www.paypal.com/mep/fundsmanagement/money", cnt: 2975 },
+          { pu_grouped: "cshelp_pages", cnt: 2821 },
+          { pu_grouped: "https://www.paypal.com/businessmanage/profile/personalInformation", cnt: 2571 },
+          { pu_grouped: "https://www.paypal.com/mep/merchantapps/businesstools", cnt: 2275 },
+          { pu_grouped: "https://www.paypal.com/", cnt: 2131 },
+          { pu_grouped: "https://www.paypal.com/businessmanage/account/accountPreferences", cnt: 2126 },
+          { pu_grouped: "https://www.paypal.com/restore/dashboard", cnt: 1986 },
+        ],
+      },
+      "2025-10": {
+        "3_4_login": [],
+      },
+    }),
+    [],
+  );
+
   const dashboardData = useMemo(
     () => ({
       title: "Merchant Activation Funnel",
@@ -7564,7 +7591,7 @@ const MerchantActivationDashboard = () => {
               breakdown: {
                 "1_login": { count: 50867, color: "#FF8C00", label: "1 Login", percentage: 18.15 },
                 "2_login": { count: 18153, color: "#006400", label: "2 Login", percentage: 6.48 },
-                "3_4_login": { count: 10623, color: "#4169E1", label: "3-4 Login", percentage: 3.79 },
+                "3_4_login": { count: 10623, color: "#4169E1", label: "3-4 Login", percentage: 3.79, has_page_urls: true },
                 "5_10_login": { count: 4376, color: "#800080", label: "5-10 Login", percentage: 1.56 },
                 more_than_10_logins: { count: 512, color: "#228B22", label: ">10 Logins", percentage: 0.18 },
               },
@@ -7835,6 +7862,12 @@ const MerchantActivationDashboard = () => {
   const handleSubcategoryClick = (item) => {
     if (item.has_error_codes) {
       setErrorCodeView(item);
+    } else if (item.has_page_urls) {
+      const pageUrls = loginPageUrlsByMonth[selectedMonth]?.[item.stage] || [];
+      setLoginPageUrlView({
+        label: item.label,
+        urls: pageUrls,
+      });
     }
   };
 
@@ -7871,6 +7904,135 @@ const MerchantActivationDashboard = () => {
   };
 
   const totals = getCategoryTotals();
+
+  if (loginPageUrlView) {
+    const totalCount = loginPageUrlView.urls.reduce((sum, r) => sum + r.cnt, 0);
+    const topUrls = loginPageUrlView.urls.slice(0, 10);
+
+    return (
+      <div className="p-4 md:p-6 bg-background min-h-screen">
+        <div className="max-w-7xl mx-auto animate-fade-in">
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
+            <button
+              onClick={() => setLoginPageUrlView(null)}
+              className="px-4 py-2.5 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors font-medium shadow-card"
+            >
+              ← Back
+            </button>
+            <select
+              value={selectedMonth}
+              onChange={(e) => setSelectedMonth(e.target.value)}
+              className="px-4 py-2.5 border border-border rounded-lg bg-card text-card-foreground shadow-card"
+            >
+              {dashboardData.months.map((m) => (
+                <option key={m.month} value={m.month}>
+                  {m.month_label} {m.month.split("-")[0]}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          <div className="bg-card rounded-xl shadow-card p-6 border border-border">
+            <h2 className="text-2xl font-bold text-card-foreground mb-2">
+              {loginPageUrlView.label} - <span className="text-primary">Page URLs</span>
+            </h2>
+            <p className="text-muted-foreground mb-6">
+              Total: <span className="font-semibold text-card-foreground">{formatNumber(totalCount)}</span> | Unique
+              URLs: <span className="font-semibold text-card-foreground">{loginPageUrlView.urls.length}</span>
+            </p>
+
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              <div>
+                <h3 className="text-lg font-semibold text-card-foreground mb-4">Top 10 Page URLs</h3>
+                <ResponsiveContainer width="100%" height={400}>
+                  <BarChart data={topUrls} layout="vertical">
+                    <XAxis type="number" tick={{ fill: "hsl(220, 10%, 45%)" }} />
+                    <YAxis
+                      type="category"
+                      dataKey="pu_grouped"
+                      width={200}
+                      tick={{ fontSize: 9, fill: "hsl(220, 20%, 25%)" }}
+                      tickFormatter={(value) => {
+                        const url = value.replace("https://www.paypal.com", "");
+                        return url.length > 30 ? url.substring(0, 30) + "..." : url;
+                      }}
+                    />
+                    <Tooltip
+                      formatter={(v) => formatNumber(v)}
+                      labelFormatter={(label) => label}
+                      contentStyle={{
+                        backgroundColor: "hsl(0, 0%, 100%)",
+                        border: "1px solid hsl(220, 13%, 91%)",
+                        borderRadius: "8px",
+                        maxWidth: "400px",
+                      }}
+                    />
+                    <Bar dataKey="cnt" radius={[0, 4, 4, 0]}>
+                      {topUrls.map((e, i) => (
+                        <Cell
+                          key={i}
+                          fill={
+                            [
+                              "#4169E1",
+                              "#5B78E8",
+                              "#7487EF",
+                              "#8E96F6",
+                              "#A7A5FD",
+                              "#6366f1",
+                              "#818cf8",
+                              "#a5b4fc",
+                              "#c7d2fe",
+                              "#e0e7ff",
+                            ][i]
+                          }
+                        />
+                      ))}
+                    </Bar>
+                  </BarChart>
+                </ResponsiveContainer>
+              </div>
+
+              <div>
+                <h3 className="text-lg font-semibold text-card-foreground mb-4">All Page URLs</h3>
+                <div className="overflow-y-auto rounded-lg border border-border" style={{ maxHeight: "400px" }}>
+                  <table className="min-w-full bg-card">
+                    <thead className="bg-muted sticky top-0">
+                      <tr>
+                        <th className="py-3 px-4 border-b border-border text-left text-sm font-semibold text-card-foreground">
+                          Page URL
+                        </th>
+                        <th className="py-3 px-4 border-b border-border text-right text-sm font-semibold text-card-foreground">
+                          Count
+                        </th>
+                        <th className="py-3 px-4 border-b border-border text-right text-sm font-semibold text-card-foreground">
+                          %
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {loginPageUrlView.urls.map((e, i) => (
+                        <tr key={i} className="hover:bg-primary/5 transition-colors">
+                          <td className="py-2.5 px-4 border-b border-border text-sm text-card-foreground font-medium break-all max-w-[300px]">
+                            {e.pu_grouped}
+                          </td>
+                          <td className="py-2.5 px-4 border-b border-border text-right text-sm font-medium text-card-foreground">
+                            {formatNumber(e.cnt)}
+                          </td>
+                          <td className="py-2.5 px-4 border-b border-border text-right text-sm text-muted-foreground">
+                            {((e.cnt / totalCount) * 100).toFixed(2)}%
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   if (failureReasonView) {
     const totalCount = failureReasonView.reasons.reduce((sum, r) => sum + r.cnt, 0);
@@ -8131,6 +8293,7 @@ const MerchantActivationDashboard = () => {
       percentage: number;
       color: string;
       has_error_codes?: boolean;
+      has_page_urls?: boolean;
       stage?: string;
     }
 
@@ -8142,6 +8305,7 @@ const MerchantActivationDashboard = () => {
         percentage: v.percentage,
         color: v.color,
         has_error_codes: v.has_error_codes,
+        has_page_urls: v.has_page_urls,
         stage: k,
       }));
 
@@ -8226,8 +8390,8 @@ const MerchantActivationDashboard = () => {
                   {subcategoryData.map((item, i) => (
                     <div
                       key={i}
-                      className={`border border-border rounded-lg p-4 bg-card transition-all ${item.has_error_codes ? "hover:shadow-card-hover cursor-pointer hover:border-primary/50" : ""}`}
-                      onClick={() => item.has_error_codes && handleSubcategoryClick(item)}
+                      className={`border border-border rounded-lg p-4 bg-card transition-all ${(item.has_error_codes || item.has_page_urls) ? "hover:shadow-card-hover cursor-pointer hover:border-primary/50" : ""}`}
+                      onClick={() => (item.has_error_codes || item.has_page_urls) && handleSubcategoryClick(item)}
                     >
                       <div className="flex items-center justify-between mb-2">
                         <span className="font-medium text-card-foreground">{item.label}</span>
@@ -8240,6 +8404,9 @@ const MerchantActivationDashboard = () => {
                       <div className="text-sm text-muted-foreground">{item.percentage?.toFixed(2)}%</div>
                       {item.has_error_codes && (
                         <div className="text-xs text-primary mt-2 font-semibold">Click for errors →</div>
+                      )}
+                      {item.has_page_urls && (
+                        <div className="text-xs text-primary mt-2 font-semibold">Click for page URLs →</div>
                       )}
                     </div>
                   ))}
