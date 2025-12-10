@@ -8202,8 +8202,10 @@ const MerchantActivationDashboard = () => {
                       }}
                     />
                     <Legend
-                      verticalAlign="bottom"
-                      height={36}
+                      layout="vertical"
+                      align="right"
+                      verticalAlign="middle"
+                      wrapperStyle={{ paddingLeft: 20, maxHeight: 350, overflowY: 'auto' }}
                       formatter={(v) => {
                         const item = subcategoryData.find((d) => d.label === v);
                         return `${v} (${item?.percentage?.toFixed(2)}%)`;
