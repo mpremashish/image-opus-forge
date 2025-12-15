@@ -12026,131 +12026,145 @@ const MerchantActivationDashboard = () => {
     [],
   );
 
-  // Login page URLs data organized by month and login category
+  // Login page URLs data organized by month, country, and login category
   const loginPageUrlsByMonth = useMemo(
     () => ({
       "2025-11": {
-        "2_login": [
-          { pu_grouped: "https://www.paypal.com/mep/dashboard", cnt: 17050 },
-          {
-            pu_grouped: "https://www.paypal.com/businessmanage/profile/personalInformation/unifiedsettings/email",
-            cnt: 5050,
-          },
-          { pu_grouped: "https://www.paypal.com/businessmanage/account/accountAccess", cnt: 4336 },
-          { pu_grouped: "https://www.paypal.com/businessmanage/profile/loginSecurity", cnt: 3861 },
-          {
-            pu_grouped:
-              "https://www.paypal.com/myaccount/money/flow/banks/new?flow=eyJyZXR1cm5VcmwiOiIvbWVwL2Rhc2hib2FyZCIsImNhbmNlbFVybCI6Ii9tZXAvZGFzaGJvYXJkIiwiZmxhZ3MiOlsiaXNJbk1vbmV5V2l0aENob2ljZSJdfQ==",
-            cnt: 3861,
-          },
-          { pu_grouped: "https://www.paypal.com/mep/fundsmanagement/money", cnt: 3596 },
-          { pu_grouped: "cshelp_pages", cnt: 3384 },
-          { pu_grouped: "https://www.paypal.com/businessmanage/profile/personalInformation", cnt: 3270 },
-          { pu_grouped: "https://www.paypal.com/businessmanage/account/accountPreferences", cnt: 3045 },
-          { pu_grouped: "https://www.paypal.com/mep/merchantapps/businesstools", cnt: 2650 },
-        ],
-        "3_4_login": [
-          { pu_grouped: "https://www.paypal.com/mep/dashboard", cnt: 10222 },
-          { pu_grouped: "https://www.paypal.com/businessmanage/account/accountAccess", cnt: 3643 },
-          {
-            pu_grouped: "https://www.paypal.com/businessmanage/profile/personalInformation/unifiedsettings/email",
-            cnt: 3238,
-          },
-          { pu_grouped: "https://www.paypal.com/businessmanage/profile/loginSecurity", cnt: 3047 },
-          {
-            pu_grouped:
-              "https://www.paypal.com/myaccount/money/flow/banks/new?flow=eyJyZXR1cm5VcmwiOiIvbWVwL2Rhc2hib2FyZCIsImNhbmNlbFVybCI6Ii9tZXAvZGFzaGJvYXJkIiwiZmxhZ3MiOlsiaXNJbk1vbmV5V2l0aENob2ljZSJdfQ==",
-            cnt: 3035,
-          },
-          { pu_grouped: "https://www.paypal.com/mep/fundsmanagement/money", cnt: 2975 },
-          { pu_grouped: "cshelp_pages", cnt: 2821 },
-          { pu_grouped: "https://www.paypal.com/businessmanage/profile/personalInformation", cnt: 2571 },
-          { pu_grouped: "https://www.paypal.com/mep/merchantapps/businesstools", cnt: 2275 },
-          { pu_grouped: "https://www.paypal.com/", cnt: 2131 },
-          { pu_grouped: "https://www.paypal.com/businessmanage/account/accountPreferences", cnt: 2126 },
-          { pu_grouped: "https://www.paypal.com/restore/dashboard", cnt: 1986 },
-        ],
-        "5_10_login": [
-          { pu_grouped: "https://www.paypal.com/mep/dashboard", cnt: 4249 },
-          { pu_grouped: "https://www.paypal.com/businessmanage/account/accountAccess", cnt: 2071 },
-          { pu_grouped: "cshelp_pages", cnt: 1812 },
-          { pu_grouped: "https://www.paypal.com/businessmanage/profile/loginSecurity", cnt: 1719 },
-          { pu_grouped: "https://www.paypal.com/mep/fundsmanagement/money", cnt: 1602 },
-          {
-            pu_grouped:
-              "https://www.paypal.com/myaccount/money/flow/banks/new?flow=eyJyZXR1cm5VcmwiOiIvbWVwL2Rhc2hib2FyZCIsImNhbmNlbFVybCI6Ii9tZXAvZGFzaGJvYXJkIiwiZmxhZ3MiOlsiaXNJbk1vbmV5V2l0aENob2ljZSJdfQ==",
-            cnt: 1550,
-          },
-          { pu_grouped: "https://www.paypal.com/businessmanage/profile/personalInformation", cnt: 1355 },
-          {
-            pu_grouped: "https://www.paypal.com/businessmanage/profile/personalInformation/unifiedsettings/email",
-            cnt: 1317,
-          },
-          { pu_grouped: "https://www.paypal.com/mep/merchantapps/businesstools", cnt: 1282 },
-          { pu_grouped: "https://www.paypal.com/businessmanage/account/accountPreferences", cnt: 1163 },
-          { pu_grouped: "https://www.paypal.com/restore/dashboard", cnt: 1157 },
-          { pu_grouped: "https://www.paypal.com/", cnt: 1082 },
-          { pu_grouped: "https://www.paypal.com/businessmanage/account/aboutBusiness", cnt: 1060 },
-        ],
+        global: {
+          "2_login": [
+            { pu_grouped: "https://www.paypal.com/mep/dashboard", cnt: 17050 },
+            {
+              pu_grouped: "https://www.paypal.com/businessmanage/profile/personalInformation/unifiedsettings/email",
+              cnt: 5050,
+            },
+            { pu_grouped: "https://www.paypal.com/businessmanage/account/accountAccess", cnt: 4336 },
+            { pu_grouped: "https://www.paypal.com/businessmanage/profile/loginSecurity", cnt: 3861 },
+            {
+              pu_grouped:
+                "https://www.paypal.com/myaccount/money/flow/banks/new?flow=eyJyZXR1cm5VcmwiOiIvbWVwL2Rhc2hib2FyZCIsImNhbmNlbFVybCI6Ii9tZXAvZGFzaGJvYXJkIiwiZmxhZ3MiOlsiaXNJbk1vbmV5V2l0aENob2ljZSJdfQ==",
+              cnt: 3861,
+            },
+            { pu_grouped: "https://www.paypal.com/mep/fundsmanagement/money", cnt: 3596 },
+            { pu_grouped: "cshelp_pages", cnt: 3384 },
+            { pu_grouped: "https://www.paypal.com/businessmanage/profile/personalInformation", cnt: 3270 },
+            { pu_grouped: "https://www.paypal.com/businessmanage/account/accountPreferences", cnt: 3045 },
+            { pu_grouped: "https://www.paypal.com/mep/merchantapps/businesstools", cnt: 2650 },
+          ],
+          "3_4_login": [
+            { pu_grouped: "https://www.paypal.com/mep/dashboard", cnt: 10222 },
+            { pu_grouped: "https://www.paypal.com/businessmanage/account/accountAccess", cnt: 3643 },
+            {
+              pu_grouped: "https://www.paypal.com/businessmanage/profile/personalInformation/unifiedsettings/email",
+              cnt: 3238,
+            },
+            { pu_grouped: "https://www.paypal.com/businessmanage/profile/loginSecurity", cnt: 3047 },
+            {
+              pu_grouped:
+                "https://www.paypal.com/myaccount/money/flow/banks/new?flow=eyJyZXR1cm5VcmwiOiIvbWVwL2Rhc2hib2FyZCIsImNhbmNlbFVybCI6Ii9tZXAvZGFzaGJvYXJkIiwiZmxhZ3MiOlsiaXNJbk1vbmV5V2l0aENob2ljZSJdfQ==",
+              cnt: 3035,
+            },
+            { pu_grouped: "https://www.paypal.com/mep/fundsmanagement/money", cnt: 2975 },
+            { pu_grouped: "cshelp_pages", cnt: 2821 },
+            { pu_grouped: "https://www.paypal.com/businessmanage/profile/personalInformation", cnt: 2571 },
+            { pu_grouped: "https://www.paypal.com/mep/merchantapps/businesstools", cnt: 2275 },
+            { pu_grouped: "https://www.paypal.com/", cnt: 2131 },
+            { pu_grouped: "https://www.paypal.com/businessmanage/account/accountPreferences", cnt: 2126 },
+            { pu_grouped: "https://www.paypal.com/restore/dashboard", cnt: 1986 },
+          ],
+          "5_10_login": [
+            { pu_grouped: "https://www.paypal.com/mep/dashboard", cnt: 4249 },
+            { pu_grouped: "https://www.paypal.com/businessmanage/account/accountAccess", cnt: 2071 },
+            { pu_grouped: "cshelp_pages", cnt: 1812 },
+            { pu_grouped: "https://www.paypal.com/businessmanage/profile/loginSecurity", cnt: 1719 },
+            { pu_grouped: "https://www.paypal.com/mep/fundsmanagement/money", cnt: 1602 },
+            {
+              pu_grouped:
+                "https://www.paypal.com/myaccount/money/flow/banks/new?flow=eyJyZXR1cm5VcmwiOiIvbWVwL2Rhc2hib2FyZCIsImNhbmNlbFVybCI6Ii9tZXAvZGFzaGJvYXJkIiwiZmxhZ3MiOlsiaXNJbk1vbmV5V2l0aENob2ljZSJdfQ==",
+              cnt: 1550,
+            },
+            { pu_grouped: "https://www.paypal.com/businessmanage/profile/personalInformation", cnt: 1355 },
+            {
+              pu_grouped: "https://www.paypal.com/businessmanage/profile/personalInformation/unifiedsettings/email",
+              cnt: 1317,
+            },
+            { pu_grouped: "https://www.paypal.com/mep/merchantapps/businesstools", cnt: 1282 },
+            { pu_grouped: "https://www.paypal.com/businessmanage/account/accountPreferences", cnt: 1163 },
+            { pu_grouped: "https://www.paypal.com/restore/dashboard", cnt: 1157 },
+            { pu_grouped: "https://www.paypal.com/", cnt: 1082 },
+            { pu_grouped: "https://www.paypal.com/businessmanage/account/aboutBusiness", cnt: 1060 },
+          ],
+        },
+        us: {
+          "2_login": [],
+          "3_4_login": [],
+          "5_10_login": [],
+        },
       },
       "2025-10": {
-        "2_login": [
-          { pu_grouped: "https://www.paypal.com/mep/dashboard", cnt: 11440 },
-          {
-            pu_grouped: "https://www.paypal.com/businessmanage/profile/personalInformation/unifiedsettings/email",
-            cnt: 3779,
-          },
-          { pu_grouped: "https://www.paypal.com/businessmanage/account/accountAccess", cnt: 3744 },
-          { pu_grouped: "https://www.paypal.com/businessmanage/profile/loginSecurity", cnt: 3570 },
-          {
-            pu_grouped:
-              "https://www.paypal.com/myaccount/money/flow/banks/new?flow=eyJyZXR1cm5VcmwiOiIvbWVwL2Rhc2hib2FyZCIsImNhbmNlbFVybCI6Ii9tZXAvZGFzaGJvYXJkIiwiZmxhZ3MiOlsiaXNJbk1vbmV5V2l0aENob2ljZSJdfQ==",
-            cnt: 2814,
-          },
-          { pu_grouped: "https://www.paypal.com/businessmanage/profile/personalInformation", cnt: 2796 },
-          { pu_grouped: "cshelp_pages", cnt: 2684 },
-          { pu_grouped: "https://www.paypal.com/mep/fundsmanagement/money", cnt: 2576 },
-          { pu_grouped: "https://www.paypal.com/businessmanage/account/accountPreferences", cnt: 2149 },
-          { pu_grouped: "https://www.paypal.com/", cnt: 2122 },
-        ],
-        "3_4_login": [
-          { pu_grouped: "https://www.paypal.com/mep/dashboard", cnt: 5338 },
-          { pu_grouped: "https://www.paypal.com/businessmanage/account/accountAccess", cnt: 2412 },
-          { pu_grouped: "https://www.paypal.com/businessmanage/profile/loginSecurity", cnt: 2221 },
-          { pu_grouped: "cshelp_pages", cnt: 1965 },
-          {
-            pu_grouped: "https://www.paypal.com/businessmanage/profile/personalInformation/unifiedsettings/email",
-            cnt: 1829,
-          },
-          {
-            pu_grouped:
-              "https://www.paypal.com/myaccount/money/flow/banks/new?flow=eyJyZXR1cm5VcmwiOiIvbWVwL2Rhc2hib2FyZCIsImNhbmNlbFVybCI6Ii9tZXAvZGFzaGJvYXJkIiwiZmxhZ3MiOlsiaXNJbk1vbmV5V2l0aENob2ljZSJdfQ==",
-            cnt: 1797,
-          },
-          { pu_grouped: "https://www.paypal.com/businessmanage/profile/personalInformation", cnt: 1758 },
-          { pu_grouped: "https://www.paypal.com/mep/fundsmanagement/money", cnt: 1700 },
-          { pu_grouped: "https://www.paypal.com/mep/merchantapps/businesstools", cnt: 1352 },
-          { pu_grouped: "https://www.paypal.com/", cnt: 1335 },
-        ],
-        "5_10_login": [
-          { pu_grouped: "https://www.paypal.com/mep/dashboard", cnt: 1586 },
-          { pu_grouped: "https://www.paypal.com/businessmanage/account/accountAccess", cnt: 916 },
-          { pu_grouped: "https://www.paypal.com/businessmanage/profile/loginSecurity", cnt: 896 },
-          { pu_grouped: "cshelp_pages", cnt: 825 },
-          { pu_grouped: "https://www.paypal.com/businessmanage/profile/personalInformation", cnt: 680 },
-          { pu_grouped: "https://www.paypal.com/mep/fundsmanagement/money", cnt: 644 },
-          {
-            pu_grouped:
-              "https://www.paypal.com/myaccount/money/flow/banks/new?flow=eyJyZXR1cm5VcmwiOiIvbWVwL2Rhc2hib2FyZCIsImNhbmNlbFVybCI6Ii9tZXAvZGFzaGJvYXJkIiwiZmxhZ3MiOlsiaXNJbk1vbmV5V2l0aENob2ljZSJdfQ==",
-            cnt: 630,
-          },
-          { pu_grouped: "https://www.paypal.com/mep/merchantapps/businesstools", cnt: 532 },
-          {
-            pu_grouped: "https://www.paypal.com/businessmanage/profile/personalInformation/unifiedsettings/email",
-            cnt: 520,
-          },
-          { pu_grouped: "https://www.paypal.com/businessmanage/account/accountPreferences", cnt: 518 },
-        ],
+        global: {
+          "2_login": [
+            { pu_grouped: "https://www.paypal.com/mep/dashboard", cnt: 11440 },
+            {
+              pu_grouped: "https://www.paypal.com/businessmanage/profile/personalInformation/unifiedsettings/email",
+              cnt: 3779,
+            },
+            { pu_grouped: "https://www.paypal.com/businessmanage/account/accountAccess", cnt: 3744 },
+            { pu_grouped: "https://www.paypal.com/businessmanage/profile/loginSecurity", cnt: 3570 },
+            {
+              pu_grouped:
+                "https://www.paypal.com/myaccount/money/flow/banks/new?flow=eyJyZXR1cm5VcmwiOiIvbWVwL2Rhc2hib2FyZCIsImNhbmNlbFVybCI6Ii9tZXAvZGFzaGJvYXJkIiwiZmxhZ3MiOlsiaXNJbk1vbmV5V2l0aENob2ljZSJdfQ==",
+              cnt: 2814,
+            },
+            { pu_grouped: "https://www.paypal.com/businessmanage/profile/personalInformation", cnt: 2796 },
+            { pu_grouped: "cshelp_pages", cnt: 2684 },
+            { pu_grouped: "https://www.paypal.com/mep/fundsmanagement/money", cnt: 2576 },
+            { pu_grouped: "https://www.paypal.com/businessmanage/account/accountPreferences", cnt: 2149 },
+            { pu_grouped: "https://www.paypal.com/", cnt: 2122 },
+          ],
+          "3_4_login": [
+            { pu_grouped: "https://www.paypal.com/mep/dashboard", cnt: 5338 },
+            { pu_grouped: "https://www.paypal.com/businessmanage/account/accountAccess", cnt: 2412 },
+            { pu_grouped: "https://www.paypal.com/businessmanage/profile/loginSecurity", cnt: 2221 },
+            { pu_grouped: "cshelp_pages", cnt: 1965 },
+            {
+              pu_grouped: "https://www.paypal.com/businessmanage/profile/personalInformation/unifiedsettings/email",
+              cnt: 1829,
+            },
+            {
+              pu_grouped:
+                "https://www.paypal.com/myaccount/money/flow/banks/new?flow=eyJyZXR1cm5VcmwiOiIvbWVwL2Rhc2hib2FyZCIsImNhbmNlbFVybCI6Ii9tZXAvZGFzaGJvYXJkIiwiZmxhZ3MiOlsiaXNJbk1vbmV5V2l0aENob2ljZSJdfQ==",
+              cnt: 1797,
+            },
+            { pu_grouped: "https://www.paypal.com/businessmanage/profile/personalInformation", cnt: 1758 },
+            { pu_grouped: "https://www.paypal.com/mep/fundsmanagement/money", cnt: 1700 },
+            { pu_grouped: "https://www.paypal.com/mep/merchantapps/businesstools", cnt: 1352 },
+            { pu_grouped: "https://www.paypal.com/", cnt: 1335 },
+          ],
+          "5_10_login": [
+            { pu_grouped: "https://www.paypal.com/mep/dashboard", cnt: 1586 },
+            { pu_grouped: "https://www.paypal.com/businessmanage/account/accountAccess", cnt: 916 },
+            { pu_grouped: "https://www.paypal.com/businessmanage/profile/loginSecurity", cnt: 896 },
+            { pu_grouped: "cshelp_pages", cnt: 825 },
+            { pu_grouped: "https://www.paypal.com/businessmanage/profile/personalInformation", cnt: 680 },
+            { pu_grouped: "https://www.paypal.com/mep/fundsmanagement/money", cnt: 644 },
+            {
+              pu_grouped:
+                "https://www.paypal.com/myaccount/money/flow/banks/new?flow=eyJyZXR1cm5VcmwiOiIvbWVwL2Rhc2hib2FyZCIsImNhbmNlbFVybCI6Ii9tZXAvZGFzaGJvYXJkIiwiZmxhZ3MiOlsiaXNJbk1vbmV5V2l0aENob2ljZSJdfQ==",
+              cnt: 630,
+            },
+            { pu_grouped: "https://www.paypal.com/mep/merchantapps/businesstools", cnt: 532 },
+            {
+              pu_grouped: "https://www.paypal.com/businessmanage/profile/personalInformation/unifiedsettings/email",
+              cnt: 520,
+            },
+            { pu_grouped: "https://www.paypal.com/businessmanage/account/accountPreferences", cnt: 518 },
+          ],
+        },
+        us: {
+          "2_login": [],
+          "3_4_login": [],
+          "5_10_login": [],
+        },
       },
     }),
     [],
@@ -12980,7 +12994,7 @@ const MerchantActivationDashboard = () => {
     if (item.has_error_codes) {
       setErrorCodeView(item);
     } else if (item.has_page_urls) {
-      const pageUrls = loginPageUrlsByMonth[selectedMonth]?.[item.stage] || [];
+      const pageUrls = loginPageUrlsByMonth[selectedMonth]?.[selectedCountry]?.[item.stage] || [];
       setLoginPageUrlView({
         label: item.label,
         urls: pageUrls,
