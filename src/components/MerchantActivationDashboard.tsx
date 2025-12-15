@@ -7709,9 +7709,9 @@ const MerchantActivationDashboard = () => {
             { stage: "non_fraud_pending", label: "Non fraud Pending", count: 171096, percentage: 27.47, color: "#22c55e" },
             { stage: "non_fraud_allowed", label: "Non fraud Allowed", count: 162732, percentage: 26.12, color: "#22c55e" },
             { stage: "non_fraud_lifted", label: "Non fraud Lifted", count: 117592, percentage: 18.88, color: "#22c55e" },
-            { stage: "net_signups", label: "Net-Signups (Nonfraud = Allowed + lifted)", count: 280324, percentage: 61.45, color: "#4bc522" },
             { stage: "kyc_completed", label: "KYC Completed", count: 127022, percentage: 27.9, color: "#06B6D4" },
             { stage: "profile_verified", label: "Profile Verified", count: 79621, percentage: 17.46, color: "#A855F7" },
+            { stage: "net_signups", label: "Net-Signups (Nonfraud = Allowed + lifted)", count: 280324, percentage: 61.45, color: "#4bc522" },
             { stage: "activated_within_30d", label: "Activated within 30D", count: 41101, percentage: 14.66, color: "#90EE90" },
             { stage: "activated_between_30d_90d", label: "Activated b/w 30D-90D", count: 48111, percentage: 17.16, color: "#90EE90" },
             {
