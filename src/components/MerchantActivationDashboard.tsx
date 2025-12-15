@@ -13362,8 +13362,31 @@ const MerchantActivationDashboard = () => {
             </div>
           </div>
 
-          <div className="bg-card rounded-xl shadow-card p-8 border border-border mb-6">
+          <div className="bg-card rounded-xl shadow-card p-8 border border-border">
             <h2 className="text-2xl font-bold text-card-foreground mb-6">Month-by-Month Trend Comparison</h2>
+
+            <div className="flex flex-wrap gap-3 mb-6">
+              {trendMetricsConfig.map((metric) => (
+                <button
+                  key={metric.key}
+                  onClick={() => toggleTrendMetric(metric.key)}
+                  className={`px-4 py-2 rounded-lg font-medium transition-all border flex items-center gap-2 ${
+                    selectedTrendMetrics.includes(metric.key)
+                      ? "border-transparent text-white shadow-card"
+                      : "border-border bg-muted text-muted-foreground hover:bg-muted/80"
+                  }`}
+                  style={{
+                    backgroundColor: selectedTrendMetrics.includes(metric.key) ? metric.color : undefined,
+                  }}
+                >
+                  <span
+                    className="w-3 h-3 rounded-full"
+                    style={{ backgroundColor: metric.color }}
+                  />
+                  {metric.label}
+                </button>
+              ))}
+            </div>
 
             <ResponsiveContainer width="100%" height={500}>
               <LineChart data={trendData} margin={{ top: 20, right: 30, left: 20, bottom: 20 }}>
@@ -13388,12 +13411,6 @@ const MerchantActivationDashboard = () => {
                     borderRadius: "8px",
                   }}
                 />
-                <Legend
-                  formatter={(value) => {
-                    const metric = trendMetricsConfig.find((m) => m.key === value);
-                    return metric?.label || value;
-                  }}
-                />
                 {trendMetricsConfig
                   .filter((metric) => selectedTrendMetrics.includes(metric.key))
                   .map((metric) => (
@@ -13409,28 +13426,6 @@ const MerchantActivationDashboard = () => {
                   ))}
               </LineChart>
             </ResponsiveContainer>
-          </div>
-
-          <div className="bg-card rounded-xl shadow-card p-6 border border-border">
-            <h3 className="text-lg font-semibold text-card-foreground mb-4">Select Metrics to Display</h3>
-            <div className="flex flex-wrap gap-3">
-              {trendMetricsConfig.map((metric) => (
-                <button
-                  key={metric.key}
-                  onClick={() => toggleTrendMetric(metric.key)}
-                  className={`px-4 py-2.5 rounded-lg font-medium transition-all border ${
-                    selectedTrendMetrics.includes(metric.key)
-                      ? "border-transparent text-white shadow-card"
-                      : "border-border bg-muted text-muted-foreground hover:bg-muted/80"
-                  }`}
-                  style={{
-                    backgroundColor: selectedTrendMetrics.includes(metric.key) ? metric.color : undefined,
-                  }}
-                >
-                  {metric.label}
-                </button>
-              ))}
-            </div>
           </div>
         </div>
       </div>
