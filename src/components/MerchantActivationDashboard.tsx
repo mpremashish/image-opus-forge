@@ -12930,9 +12930,9 @@ const MerchantActivationDashboard = () => {
               color: "#D3D3D3",
               breakdown: {
                 "1_login": { count: 11114, color: "#FF8C00", label: "1 Login", percentage: 16.19 },
-                "2_login": { count: 4680, color: "#006400", label: "2 Login", percentage: 7.07 },
-                "3_4_login": { count: 2963, color: "#4169E1", label: "3-4 Login", percentage: 4.47 },
-                "5_10_login": { count: 1094, color: "#800080", label: "5-10 Login", percentage: 1.65 },
+                "2_login": { count: 4680, color: "#006400", label: "2 Login", percentage: 7.07, has_page_urls: true },
+                "3_4_login": { count: 2963, color: "#4169E1", label: "3-4 Login", percentage: 4.47, has_page_urls: true },
+                "5_10_login": { count: 1094, color: "#800080", label: "5-10 Login", percentage: 1.65, has_page_urls: true },
                 more_than_10_logins: { count: 141, color: "#228B22", label: ">10 Logins", percentage: 0.21 },
               },
             },
