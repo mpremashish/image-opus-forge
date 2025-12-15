@@ -12598,9 +12598,9 @@ const MerchantActivationDashboard = () => {
               color: "#D3D3D3",
               breakdown: {
                 "1_login": { count: 41797, color: "#FF8C00", label: "1 Login", percentage: 14.91 },
-                "2_login": { count: 12066, color: "#006400", label: "2 Login", percentage: 4.3 },
-                "3_4_login": { count: 5520, color: "#4169E1", label: "3-4 Login", percentage: 1.97 },
-                "5_10_login": { count: 1626, color: "#800080", label: "5-10 Login", percentage: 0.58 },
+                "2_login": { count: 12066, color: "#006400", label: "2 Login", percentage: 4.3, has_page_urls: true },
+                "3_4_login": { count: 5520, color: "#4169E1", label: "3-4 Login", percentage: 1.97, has_page_urls: true },
+                "5_10_login": { count: 1626, color: "#800080", label: "5-10 Login", percentage: 0.58, has_page_urls: true },
                 more_than_10_logins: { count: 161, color: "#228B22", label: ">10 Logins", percentage: 0.06 },
               },
             },
@@ -12940,6 +12940,15 @@ const MerchantActivationDashboard = () => {
     return dashboardData.months.find((m) => m.month === selectedMonth && m.country === selectedCountry);
   }, [selectedMonth, selectedCountry, dashboardData]);
 
+  const uniqueMonths = useMemo(() => {
+    const seen = new Set<string>();
+    return dashboardData.months.filter((m) => {
+      if (seen.has(m.month)) return false;
+      seen.add(m.month);
+      return true;
+    });
+  }, [dashboardData]);
+
   const funnelChartData = useMemo(() => {
     if (!currentMonthData) return [];
 
@@ -13055,7 +13064,7 @@ const MerchantActivationDashboard = () => {
               onChange={(e) => setSelectedMonth(e.target.value)}
               className="px-4 py-2.5 border border-border rounded-lg bg-card text-card-foreground shadow-card"
             >
-              {dashboardData.months.map((m) => (
+              {uniqueMonths.map((m) => (
                 <option key={m.month} value={m.month}>
                   {m.month_label} {m.month.split("-")[0]}
                 </option>
@@ -13184,7 +13193,7 @@ const MerchantActivationDashboard = () => {
               onChange={(e) => setSelectedMonth(e.target.value)}
               className="px-4 py-2.5 border border-border rounded-lg bg-card text-card-foreground shadow-card"
             >
-              {dashboardData.months.map((m) => (
+              {uniqueMonths.map((m) => (
                 <option key={m.month} value={m.month}>
                   {m.month_label} {m.month.split("-")[0]}
                 </option>
@@ -13309,7 +13318,7 @@ const MerchantActivationDashboard = () => {
               onChange={(e) => setSelectedMonth(e.target.value)}
               className="px-4 py-2.5 border border-border rounded-lg bg-card text-card-foreground shadow-card"
             >
-              {dashboardData.months.map((m) => (
+              {uniqueMonths.map((m) => (
                 <option key={m.month} value={m.month}>
                   {m.month_label} {m.month.split("-")[0]}
                 </option>
@@ -13455,7 +13464,7 @@ const MerchantActivationDashboard = () => {
               onChange={(e) => setSelectedMonth(e.target.value)}
               className="px-4 py-2.5 border border-border rounded-lg bg-card text-card-foreground shadow-card"
             >
-              {dashboardData.months.map((m) => (
+              {uniqueMonths.map((m) => (
                 <option key={m.month} value={m.month}>
                   {m.month_label} {m.month.split("-")[0]}
                 </option>
