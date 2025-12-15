@@ -8549,14 +8549,14 @@ const MerchantActivationDashboard = () => {
           <h2 className="text-2xl font-semibold text-card-foreground mb-3">Merchant Activation Funnel</h2>
           <p className="text-base text-muted-foreground mb-6">Click bars with subcategories to drill down</p>
 
-          <ResponsiveContainer width="100%" height={600}>
-            <BarChart data={funnelChartData} layout="vertical">
+          <ResponsiveContainer width="100%" height={900}>
+            <BarChart data={funnelChartData} layout="vertical" barSize={28}>
               <XAxis type="number" tick={{ fill: "hsl(220, 10%, 45%)" }} />
               <YAxis
                 type="category"
                 dataKey="name"
-                width={200}
-                tick={{ fontSize: 11, fontWeight: 700, fill: "hsl(220, 20%, 25%)" }}
+                width={280}
+                tick={{ fontSize: 12, fontWeight: 600, fill: "hsl(220, 20%, 25%)" }}
               />
               <Tooltip
                 formatter={(v) => formatNumber(v)}
