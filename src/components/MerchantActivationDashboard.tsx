@@ -16,10 +16,11 @@ const MerchantActivationDashboard = () => {
     { value: "us" as Country, label: "United States", flag: "🇺🇸" },
   ];
 
-  // Error codes data organized by month
+  // Error codes data organized by month and country
   const errorCodesByMonth = useMemo(
     () => ({
       "2025-11": {
+        global: {
         ec: [
           { counts: 9790, code: "#" },
           { counts: 2270, code: "CANNOT_PAY_SELF" },
@@ -226,8 +227,95 @@ const MerchantActivationDashboard = () => {
           { counts: 1, code: "HIGH_FRAUD" },
           { counts: 1, code: "MERCHANDISE_RISK" },
         ],
+        },
+        us: {
+          ec: [
+            { counts: 1368, code: "#" },
+            { counts: 498, code: "UNPROCESSABLE_CONTENT" },
+            { counts: 205, code: "Bad Request" },
+            { counts: 163, code: "TRANSACTION_REFUSED" },
+            { counts: 125, code: "CANNOT_PAY_SELF" },
+            { counts: 101, code: "ADD_PAYMENT_CARD" },
+            { counts: 83, code: "failed_to_load_script" },
+            { counts: 73, code: "auth_error" },
+            { counts: 72, code: "Unauthorized" },
+            { counts: 49, code: "0" },
+            { counts: 47, code: "401" },
+            { counts: 36, code: "invalid_user" },
+            { counts: 33, code: "1" },
+            { counts: 31, code: "INVALID_RESOURCE_ID" },
+            { counts: 29, code: "OK" },
+            { counts: 26, code: "invalid_grant" },
+            { counts: 26, code: "failed_to_load_link" },
+            { counts: 26, code: "9107" },
+            { counts: 26, code: "PAYEE_ACCOUNT_NOT_VERIFIED" },
+            { counts: 25, code: "INTERNAL_SERVER_ERROR" },
+            { counts: 24, code: "risk_decline" },
+            { counts: 18, code: "3197" },
+            { counts: 17, code: "422" },
+            { counts: 14, code: "stepup_required" },
+            { counts: 12, code: "400" },
+            { counts: 11, code: "2fa_required" },
+            { counts: 10, code: "UNAUTH_CC_RISK" },
+            { counts: 9, code: "Error" },
+            { counts: 9, code: "UNPROCESSABLE_ENTITY" },
+            { counts: 8, code: "STEP_UP_AUTH_NEEDED" },
+            { counts: 8, code: "PAYEE_ACCOUNT_RESTRICTED" },
+            { counts: 8, code: "ISSUER_DECLINE" },
+            { counts: 8, code: "NEED_CREDIT_CARD" },
+            { counts: 7, code: "ORDER_NOT_APPROVED" },
+            { counts: 6, code: "missing_email" },
+            { counts: 6, code: "unconfirmed_phone" },
+            { counts: 6, code: "PAYER_CANNOT_PAY" },
+            { counts: 5, code: "DECLINED_INSTRUMENT" },
+            { counts: 5, code: "RISK_DECLINED" },
+            { counts: 5, code: "3DS Contingency" },
+            { counts: 5, code: "INSUFFICIENT_FUNDS" },
+            { counts: 5, code: "NO_SELECTED_OPTION" },
+            { counts: 4, code: "UNAUTHORIZED" },
+            { counts: 4, code: "R_ERROR" },
+            { counts: 4, code: "INVALID_ACCOUNT" },
+            { counts: 3, code: "PAYEE_NOT_CONSENTED" },
+            { counts: 3, code: "VALIDATION_ERROR" },
+            { counts: 3, code: "TypeError" },
+            { counts: 3, code: "UPDATE_PAYMENT_CARD" },
+            { counts: 3, code: "-1" },
+            { counts: 2, code: "SELLER_RESTRICTION" },
+            { counts: 2, code: "N" },
+            { counts: 2, code: "PAYER_ACCOUNT_RESTRICTED" },
+            { counts: 2, code: "PAYER_ACCOUNT_LOCKED_OR_CLOSED" },
+            { counts: 2, code: "max_attempts_exceeded" },
+            { counts: 2, code: "invalid_public_credential" },
+            { counts: 2, code: "LOGIN" },
+            { counts: 2, code: "HIGH_FRAUD" },
+            { counts: 1, code: "NO_VALID_FUNDING_INSTRUMENT" },
+            { counts: 1, code: "no_retry_failed_to_fetch_next_resource" },
+            { counts: 1, code: "PAYMENT_ALREADY_DONE" },
+            { counts: 1, code: "INSTANT_PAYMENT_IN_PENDING_STATE" },
+            { counts: 1, code: "PAYEE_NOT_ENABLED_FOR_CARD_PROCESSING" },
+            { counts: 1, code: "14716" },
+            { counts: 1, code: "INVALID_OR_RESTRICTED_CARD" },
+            { counts: 1, code: "GENERIC_DECLINE" },
+            { counts: 1, code: "1005" },
+            { counts: 1, code: "2003" },
+            { counts: 1, code: "failed_to_fetch_next_action" },
+            { counts: 1, code: "99998" },
+            { counts: 1, code: "no_retry_failed_to_fetch_next_rsc" },
+            { counts: 1, code: "locked_user" },
+            { counts: 1, code: "SUSPECTED_FRAUD" },
+            { counts: 1, code: "ACH_FRAUD_RISK" },
+            { counts: 1, code: "BUYER_RESTRICTION" },
+            { counts: 1, code: "HIGH_NSF_RISK" },
+            { counts: 1, code: "EXTERNAL_DECLINE" },
+            { counts: 1, code: "ACCOUNT_ALREADY_EXISTS" },
+            { counts: 1, code: "GUEST_CARD_COUNTRY_MISMATCH" },
+            { counts: 1, code: "BAD_REQUEST" },
+          ],
+          invoice: [],
+        },
       },
       "2025-10": {
+        global: {
         ec: [
           { counts: 9553, code: "#" },
           { counts: 2363, code: "CANNOT_PAY_SELF" },
@@ -439,16 +527,18 @@ const MerchantActivationDashboard = () => {
           { counts: 1, code: "UNKNOWN" },
           { counts: 1, code: "INTERNAL_SERVICE_ERROR_java.lang.NullPointerException_NO_STACK_TRACE null" },
         ],
+        },
       },
     }),
     [],
   );
 
-  // Failure reasons data organized by month and transaction type
+  // Failure reasons data organized by month, country, and transaction type
   const failureReasonsByMonth = useMemo(
     () => ({
       "2025-11": {
-        ec: [
+        global: {
+          ec: [
           {
             mth: "2025-11-01",
             cnt: 7126,
@@ -3959,9 +4049,15 @@ const MerchantActivationDashboard = () => {
             failure_reason: "XO session fallout without error",
           },
         ],
+        },
+        us: {
+          ec: [],
+          invoice: [],
+        },
       },
       "2025-10": {
-        ec: [
+        global: {
+          ec: [
           {
             mth: "2025-10-01",
             cnt: 6878,
@@ -7409,6 +7505,7 @@ const MerchantActivationDashboard = () => {
           },
           { mth: "2025-10-01", cnt: 1, last_intrnl_err_code: "OK", failure_reason: "XO session fallout without error" },
         ],
+        },
       },
     }),
     [],
@@ -7675,21 +7772,21 @@ const MerchantActivationDashboard = () => {
               },
             },
           ],
-          ec_error_codes: (errorCodesByMonth[selectedMonth]?.ec || []).map((item) => ({
+          ec_error_codes: (errorCodesByMonth[selectedMonth]?.global?.ec || []).map((item) => ({
             code: item.code,
             count: item.counts,
           })),
-          invoice_error_codes: (errorCodesByMonth[selectedMonth]?.invoice || []).map((item) => ({
+          invoice_error_codes: (errorCodesByMonth[selectedMonth]?.global?.invoice || []).map((item) => ({
             code: item.code,
             count: item.counts,
           })),
-          ec_failure_reasons: (failureReasonsByMonth[selectedMonth]?.ec || []).map((item) => ({
+          ec_failure_reasons: (failureReasonsByMonth[selectedMonth]?.global?.ec || []).map((item) => ({
             mth: item.mth,
             cnt: item.cnt,
             last_intrnl_err_code: item.last_intrnl_err_code,
             failure_reason: item.failure_reason,
           })),
-          invoice_failure_reasons: (failureReasonsByMonth[selectedMonth]?.invoice || []).map((item) => ({
+          invoice_failure_reasons: (failureReasonsByMonth[selectedMonth]?.global?.invoice || []).map((item) => ({
             mth: item.mth,
             cnt: item.cnt,
             last_intrnl_err_code: item.last_intrnl_err_code,
@@ -7760,21 +7857,21 @@ const MerchantActivationDashboard = () => {
               },
             },
           ],
-          ec_error_codes: (errorCodesByMonth[selectedMonth]?.ec || []).map((item) => ({
+          ec_error_codes: (errorCodesByMonth[selectedMonth]?.global?.ec || []).map((item) => ({
             code: item.code,
             count: item.counts,
           })),
-          invoice_error_codes: (errorCodesByMonth[selectedMonth]?.invoice || []).map((item) => ({
+          invoice_error_codes: (errorCodesByMonth[selectedMonth]?.global?.invoice || []).map((item) => ({
             code: item.code,
             count: item.counts,
           })),
-          ec_failure_reasons: (failureReasonsByMonth[selectedMonth]?.ec || []).map((item) => ({
+          ec_failure_reasons: (failureReasonsByMonth[selectedMonth]?.global?.ec || []).map((item) => ({
             mth: item.mth,
             cnt: item.cnt,
             last_intrnl_err_code: item.last_intrnl_err_code,
             failure_reason: item.failure_reason,
           })),
-          invoice_failure_reasons: (failureReasonsByMonth[selectedMonth]?.invoice || []).map((item) => ({
+          invoice_failure_reasons: (failureReasonsByMonth[selectedMonth]?.global?.invoice || []).map((item) => ({
             mth: item.mth,
             cnt: item.cnt,
             last_intrnl_err_code: item.last_intrnl_err_code,
@@ -7845,21 +7942,21 @@ const MerchantActivationDashboard = () => {
               },
             },
           ],
-          ec_error_codes: (errorCodesByMonth[selectedMonth]?.ec || []).map((item) => ({
+          ec_error_codes: (errorCodesByMonth["2025-11"]?.us?.ec || []).map((item) => ({
             code: item.code,
             count: item.counts,
           })),
-          invoice_error_codes: (errorCodesByMonth[selectedMonth]?.invoice || []).map((item) => ({
+          invoice_error_codes: (errorCodesByMonth["2025-11"]?.us?.invoice || []).map((item) => ({
             code: item.code,
             count: item.counts,
           })),
-          ec_failure_reasons: (failureReasonsByMonth[selectedMonth]?.ec || []).map((item) => ({
+          ec_failure_reasons: (failureReasonsByMonth["2025-11"]?.us?.ec || []).map((item) => ({
             mth: item.mth,
             cnt: item.cnt,
             last_intrnl_err_code: item.last_intrnl_err_code,
             failure_reason: item.failure_reason,
           })),
-          invoice_failure_reasons: (failureReasonsByMonth[selectedMonth]?.invoice || []).map((item) => ({
+          invoice_failure_reasons: (failureReasonsByMonth["2025-11"]?.us?.invoice || []).map((item) => ({
             mth: item.mth,
             cnt: item.cnt,
             last_intrnl_err_code: item.last_intrnl_err_code,
@@ -7950,8 +8047,8 @@ const MerchantActivationDashboard = () => {
     // Determine transaction type
     const transactionType = errorCodeView.stage === "ec_attempted_in_30D" ? "ec" : "invoice";
 
-    // Get failure reasons for this month and transaction type
-    const failureReasonsData = failureReasonsByMonth[selectedMonth]?.[transactionType] || [];
+    // Get failure reasons for this month, country, and transaction type
+    const failureReasonsData = failureReasonsByMonth[selectedMonth]?.[selectedCountry]?.[transactionType] || [];
 
     const failureReasons = failureReasonsData
       .filter((item) => item.last_intrnl_err_code === errorCode)
