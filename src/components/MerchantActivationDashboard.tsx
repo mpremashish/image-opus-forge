@@ -1,12 +1,20 @@
 import React, { useState, useMemo } from "react";
 import { BarChart, Bar, XAxis, YAxis, Tooltip, Cell, ResponsiveContainer, PieChart, Pie, Legend } from "recharts";
 
+type Country = "global" | "us";
+
 const MerchantActivationDashboard = () => {
   const [selectedMonth, setSelectedMonth] = useState("2025-11");
+  const [selectedCountry, setSelectedCountry] = useState<Country>("global");
   const [drilldownStage, setDrilldownStage] = useState(null);
   const [errorCodeView, setErrorCodeView] = useState(null);
   const [failureReasonView, setFailureReasonView] = useState(null);
   const [loginPageUrlView, setLoginPageUrlView] = useState(null);
+
+  const countryOptions = [
+    { value: "global" as Country, label: "Global", flag: "🌍" },
+    { value: "us" as Country, label: "United States", flag: "🇺🇸" },
+  ];
 
   // Error codes data organized by month
   const errorCodesByMonth = useMemo(
@@ -7779,8 +7787,8 @@ const MerchantActivationDashboard = () => {
   );
 
   const currentMonthData = useMemo(() => {
-    return dashboardData.months.find((m) => m.month === selectedMonth);
-  }, [selectedMonth, dashboardData]);
+    return dashboardData.months.find((m) => m.month === selectedMonth && m.country === selectedCountry);
+  }, [selectedMonth, selectedCountry, dashboardData]);
 
   const funnelChartData = useMemo(() => {
     if (!currentMonthData) return [];
@@ -8397,17 +8405,37 @@ const MerchantActivationDashboard = () => {
       <div className="w-full animate-fade-in">
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
           <h1 className="text-3xl md:text-4xl font-bold text-foreground tracking-tight">{dashboardData.title}</h1>
-          <select
-            value={selectedMonth}
-            onChange={(e) => setSelectedMonth(e.target.value)}
-            className="px-4 py-2.5 border border-border rounded-lg bg-card text-card-foreground shadow-card hover:shadow-card-hover transition-shadow focus:outline-none focus:ring-2 focus:ring-ring"
-          >
-            {dashboardData.months.map((m) => (
-              <option key={m.month} value={m.month}>
-                {m.month_label} {m.month.split("-")[0]}
-              </option>
-            ))}
-          </select>
+          <div className="flex flex-wrap gap-3">
+            <div className="flex rounded-lg border border-border bg-card shadow-card overflow-hidden">
+              {countryOptions.map((option) => (
+                <button
+                  key={option.value}
+                  onClick={() => setSelectedCountry(option.value)}
+                  className={`px-4 py-2.5 flex items-center gap-2 transition-all font-medium ${
+                    selectedCountry === option.value
+                      ? "bg-primary text-primary-foreground"
+                      : "text-card-foreground hover:bg-muted"
+                  }`}
+                >
+                  <span className="text-lg">{option.flag}</span>
+                  <span className="hidden sm:inline">{option.label}</span>
+                </button>
+              ))}
+            </div>
+            <select
+              value={selectedMonth}
+              onChange={(e) => setSelectedMonth(e.target.value)}
+              className="px-4 py-2.5 border border-border rounded-lg bg-card text-card-foreground shadow-card hover:shadow-card-hover transition-shadow focus:outline-none focus:ring-2 focus:ring-ring"
+            >
+              {dashboardData.months
+                .filter((m) => m.country === selectedCountry)
+                .map((m) => (
+                  <option key={m.month} value={m.month}>
+                    {m.month_label} {m.month.split("-")[0]}
+                  </option>
+                ))}
+            </select>
+          </div>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6 mb-8">
