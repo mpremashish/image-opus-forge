@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from "react";
-import { BarChart, Bar, XAxis, YAxis, Tooltip, Cell, ResponsiveContainer, PieChart, Pie, Legend } from "recharts";
+import { BarChart, Bar, XAxis, YAxis, Tooltip, Cell, ResponsiveContainer, PieChart, Pie, Legend, LineChart, Line, CartesianGrid } from "recharts";
 
 type Country = "global" | "us";
 
@@ -10,6 +10,16 @@ const MerchantActivationDashboard = () => {
   const [errorCodeView, setErrorCodeView] = useState(null);
   const [failureReasonView, setFailureReasonView] = useState(null);
   const [loginPageUrlView, setLoginPageUrlView] = useState(null);
+  const [showTrendView, setShowTrendView] = useState(false);
+  const [selectedTrendMetrics, setSelectedTrendMetrics] = useState<string[]>([
+    "gross_signups",
+    "net_signups",
+    "frauds",
+    "kyc_completed",
+    "activated",
+    "attempted_receive",
+    "platform_interaction",
+  ]);
 
   const countryOptions = [
     { value: "global" as Country, label: "Global", flag: "🌍" },
@@ -13184,6 +13194,49 @@ const MerchantActivationDashboard = () => {
     });
   }, [dashboardData]);
 
+  const trendMetricsConfig = useMemo(
+    () => [
+      { key: "gross_signups", label: "Gross Signups", color: "hsl(221, 83%, 53%)" },
+      { key: "net_signups", label: "Net Signups", color: "hsl(142, 71%, 45%)" },
+      { key: "frauds", label: "Frauds", color: "hsl(0, 84%, 60%)" },
+      { key: "kyc_completed", label: "KYC Completed", color: "hsl(187, 85%, 43%)" },
+      { key: "activated", label: "Activated", color: "hsl(142, 76%, 36%)" },
+      { key: "attempted_receive", label: "Attempted to Receive", color: "hsl(199, 89%, 48%)" },
+      { key: "platform_interaction", label: "Platform Interactions", color: "hsl(45, 93%, 47%)" },
+    ],
+    []
+  );
+
+  const trendData = useMemo(() => {
+    const countryMonths = dashboardData.months
+      .filter((m) => m.country === selectedCountry)
+      .sort((a, b) => a.month.localeCompare(b.month));
+
+    return countryMonths.map((m) => {
+      const activated = m.funnel_stages.find((s) => s.stage === "activated_between_30d_90d")?.count || 0;
+      const receive = m.funnel_stages.find((s) => s.stage === "receive_txn_attempted_within_30d")?.count || 0;
+      const interaction = m.funnel_stages.find((s) => s.stage === "login_attempted")?.count || 0;
+      const kycCompleted = m.funnel_stages.find((s) => s.stage === "kyc_completed")?.count || 0;
+
+      return {
+        month: m.month_label,
+        gross_signups: m.total_signups,
+        net_signups: m.net_signups || 0,
+        frauds: m.fraud_count || 0,
+        kyc_completed: kycCompleted,
+        activated: activated,
+        attempted_receive: receive,
+        platform_interaction: interaction,
+      };
+    });
+  }, [dashboardData, selectedCountry]);
+
+  const toggleTrendMetric = (key: string) => {
+    setSelectedTrendMetrics((prev) =>
+      prev.includes(key) ? prev.filter((k) => k !== key) : [...prev, key]
+    );
+  };
+
   const funnelChartData = useMemo(() => {
     if (!currentMonthData) return [];
 
@@ -13279,6 +13332,110 @@ const MerchantActivationDashboard = () => {
   };
 
   const totals = getCategoryTotals();
+
+  if (showTrendView) {
+    return (
+      <div className="p-6 md:p-10 lg:p-12 bg-background min-h-screen">
+        <div className="w-full animate-fade-in">
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
+            <button
+              onClick={() => setShowTrendView(false)}
+              className="px-4 py-2.5 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors font-medium shadow-card"
+            >
+              ← Back to Dashboard
+            </button>
+            <div className="flex rounded-lg border border-border bg-card shadow-card overflow-hidden">
+              {countryOptions.map((option) => (
+                <button
+                  key={option.value}
+                  onClick={() => setSelectedCountry(option.value)}
+                  className={`px-4 py-2.5 flex items-center gap-2 transition-all font-medium ${
+                    selectedCountry === option.value
+                      ? "bg-primary text-primary-foreground"
+                      : "text-card-foreground hover:bg-muted"
+                  }`}
+                >
+                  <span className="text-lg">{option.flag}</span>
+                  <span className="hidden sm:inline">{option.label}</span>
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <div className="bg-card rounded-xl shadow-card p-8 border border-border mb-6">
+            <h2 className="text-2xl font-bold text-card-foreground mb-6">Month-by-Month Trend Comparison</h2>
+
+            <ResponsiveContainer width="100%" height={500}>
+              <LineChart data={trendData} margin={{ top: 20, right: 30, left: 20, bottom: 20 }}>
+                <CartesianGrid strokeDasharray="3 3" stroke="hsl(220, 13%, 91%)" />
+                <XAxis dataKey="month" tick={{ fill: "hsl(220, 10%, 45%)" }} />
+                <YAxis
+                  tick={{ fill: "hsl(220, 10%, 45%)" }}
+                  tickFormatter={(value) => {
+                    if (value >= 1000000) return `${(value / 1000000).toFixed(1)}M`;
+                    if (value >= 1000) return `${(value / 1000).toFixed(0)}K`;
+                    return value;
+                  }}
+                />
+                <Tooltip
+                  formatter={(value, name) => {
+                    const metric = trendMetricsConfig.find((m) => m.key === name);
+                    return [formatNumber(value), metric?.label || name];
+                  }}
+                  contentStyle={{
+                    backgroundColor: "hsl(0, 0%, 100%)",
+                    border: "1px solid hsl(220, 13%, 91%)",
+                    borderRadius: "8px",
+                  }}
+                />
+                <Legend
+                  formatter={(value) => {
+                    const metric = trendMetricsConfig.find((m) => m.key === value);
+                    return metric?.label || value;
+                  }}
+                />
+                {trendMetricsConfig
+                  .filter((metric) => selectedTrendMetrics.includes(metric.key))
+                  .map((metric) => (
+                    <Line
+                      key={metric.key}
+                      type="monotone"
+                      dataKey={metric.key}
+                      stroke={metric.color}
+                      strokeWidth={2}
+                      dot={{ fill: metric.color, strokeWidth: 2, r: 4 }}
+                      activeDot={{ r: 6 }}
+                    />
+                  ))}
+              </LineChart>
+            </ResponsiveContainer>
+          </div>
+
+          <div className="bg-card rounded-xl shadow-card p-6 border border-border">
+            <h3 className="text-lg font-semibold text-card-foreground mb-4">Select Metrics to Display</h3>
+            <div className="flex flex-wrap gap-3">
+              {trendMetricsConfig.map((metric) => (
+                <button
+                  key={metric.key}
+                  onClick={() => toggleTrendMetric(metric.key)}
+                  className={`px-4 py-2.5 rounded-lg font-medium transition-all border ${
+                    selectedTrendMetrics.includes(metric.key)
+                      ? "border-transparent text-white shadow-card"
+                      : "border-border bg-muted text-muted-foreground hover:bg-muted/80"
+                  }`}
+                  style={{
+                    backgroundColor: selectedTrendMetrics.includes(metric.key) ? metric.color : undefined,
+                  }}
+                >
+                  {metric.label}
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   if (loginPageUrlView) {
     const totalCount = loginPageUrlView.urls.reduce((sum, r) => sum + r.cnt, 0);
@@ -13798,7 +13955,15 @@ const MerchantActivationDashboard = () => {
     <div className="p-6 md:p-10 lg:p-12 bg-background min-h-screen">
       <div className="w-full animate-fade-in">
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
-          <h1 className="text-3xl md:text-4xl font-bold text-foreground tracking-tight">{dashboardData.title}</h1>
+          <div className="flex items-center gap-4">
+            <h1 className="text-3xl md:text-4xl font-bold text-foreground tracking-tight">{dashboardData.title}</h1>
+            <button
+              onClick={() => setShowTrendView(true)}
+              className="px-4 py-2.5 bg-info text-info-foreground rounded-lg hover:bg-info/90 transition-colors font-medium shadow-card flex items-center gap-2"
+            >
+              📈 Trend
+            </button>
+          </div>
           <div className="flex flex-wrap gap-3">
             <div className="flex rounded-lg border border-border bg-card shadow-card overflow-hidden">
               {countryOptions.map((option) => (
