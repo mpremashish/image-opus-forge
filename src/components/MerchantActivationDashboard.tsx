@@ -11,7 +11,7 @@ const MerchantActivationDashboard = () => {
   const [failureReasonView, setFailureReasonView] = useState(null);
   const [loginPageUrlView, setLoginPageUrlView] = useState(null);
   const [showTrendView, setShowTrendView] = useState(false);
-  const [focusedTrendMetric, setFocusedTrendMetric] = useState<string | null>(null);
+  const [selectedTrendMetrics, setSelectedTrendMetrics] = useState<string[]>([]);
 
   const countryOptions = [
     { value: "global" as Country, label: "Global", flag: "🌍" },
@@ -13224,12 +13224,15 @@ const MerchantActivationDashboard = () => {
   }, [dashboardData, selectedCountry]);
 
   const toggleTrendMetric = (key: string) => {
-    setFocusedTrendMetric((prev) => (prev === key ? null : key));
+    setSelectedTrendMetrics((prev) =>
+      prev.includes(key) ? prev.filter((k) => k !== key) : [...prev, key]
+    );
   };
 
-  const visibleTrendMetrics = focusedTrendMetric
-    ? [focusedTrendMetric]
-    : trendMetricsConfig.map((m) => m.key);
+  const visibleTrendMetrics =
+    selectedTrendMetrics.length === 0
+      ? trendMetricsConfig.map((m) => m.key)
+      : selectedTrendMetrics;
 
   const funnelChartData = useMemo(() => {
     if (!currentMonthData) return [];
@@ -13387,14 +13390,14 @@ const MerchantActivationDashboard = () => {
                     <div className="flex flex-wrap justify-center gap-4 mt-4">
                       {trendMetricsConfig.map((metric) => {
                         const isActive = visibleTrendMetrics.includes(metric.key);
-                        const isFocused = focusedTrendMetric === metric.key;
+                        const isSelected = selectedTrendMetrics.includes(metric.key);
                         return (
                           <button
                             key={metric.key}
                             onClick={() => toggleTrendMetric(metric.key)}
                             className={`flex items-center gap-2 px-3 py-1.5 rounded-md transition-all cursor-pointer ${
                               isActive ? "opacity-100" : "opacity-40"
-                            } hover:opacity-100 ${isFocused ? "bg-muted ring-2 ring-primary" : ""}`}
+                            } hover:opacity-100 ${isSelected ? "bg-muted ring-2 ring-primary" : ""}`}
                           >
                             <span
                               className="w-3 h-3 rounded-full"
