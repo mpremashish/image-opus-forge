@@ -11,15 +11,7 @@ const MerchantActivationDashboard = () => {
   const [failureReasonView, setFailureReasonView] = useState(null);
   const [loginPageUrlView, setLoginPageUrlView] = useState(null);
   const [showTrendView, setShowTrendView] = useState(false);
-  const [selectedTrendMetrics, setSelectedTrendMetrics] = useState<string[]>([
-    "gross_signups",
-    "net_signups",
-    "frauds",
-    "kyc_completed",
-    "activated",
-    "attempted_receive",
-    "platform_interaction",
-  ]);
+  const [focusedTrendMetric, setFocusedTrendMetric] = useState<string | null>(null);
 
   const countryOptions = [
     { value: "global" as Country, label: "Global", flag: "🌍" },
@@ -13232,10 +13224,12 @@ const MerchantActivationDashboard = () => {
   }, [dashboardData, selectedCountry]);
 
   const toggleTrendMetric = (key: string) => {
-    setSelectedTrendMetrics((prev) =>
-      prev.includes(key) ? prev.filter((k) => k !== key) : [...prev, key]
-    );
+    setFocusedTrendMetric((prev) => (prev === key ? null : key));
   };
+
+  const visibleTrendMetrics = focusedTrendMetric
+    ? [focusedTrendMetric]
+    : trendMetricsConfig.map((m) => m.key);
 
   const funnelChartData = useMemo(() => {
     if (!currentMonthData) return [];
@@ -13392,20 +13386,21 @@ const MerchantActivationDashboard = () => {
                   content={() => (
                     <div className="flex flex-wrap justify-center gap-4 mt-4">
                       {trendMetricsConfig.map((metric) => {
-                        const isActive = selectedTrendMetrics.includes(metric.key);
+                        const isActive = visibleTrendMetrics.includes(metric.key);
+                        const isFocused = focusedTrendMetric === metric.key;
                         return (
                           <button
                             key={metric.key}
                             onClick={() => toggleTrendMetric(metric.key)}
                             className={`flex items-center gap-2 px-3 py-1.5 rounded-md transition-all cursor-pointer ${
                               isActive ? "opacity-100" : "opacity-40"
-                            } hover:opacity-100`}
+                            } hover:opacity-100 ${isFocused ? "bg-muted ring-2 ring-primary" : ""}`}
                           >
                             <span
                               className="w-3 h-3 rounded-full"
                               style={{ backgroundColor: metric.color }}
                             />
-                            <span className={`text-sm font-medium ${isActive ? "text-card-foreground" : "text-muted-foreground line-through"}`}>
+                            <span className={`text-sm font-medium ${isActive ? "text-card-foreground" : "text-muted-foreground"}`}>
                               {metric.label}
                             </span>
                           </button>
@@ -13415,7 +13410,7 @@ const MerchantActivationDashboard = () => {
                   )}
                 />
                 {trendMetricsConfig
-                  .filter((metric) => selectedTrendMetrics.includes(metric.key))
+                  .filter((metric) => visibleTrendMetrics.includes(metric.key))
                   .map((metric) => (
                     <Line
                       key={metric.key}
