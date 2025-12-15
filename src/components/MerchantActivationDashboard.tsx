@@ -13365,29 +13365,6 @@ const MerchantActivationDashboard = () => {
           <div className="bg-card rounded-xl shadow-card p-8 border border-border">
             <h2 className="text-2xl font-bold text-card-foreground mb-6">Month-by-Month Trend Comparison</h2>
 
-            <div className="flex flex-wrap gap-3 mb-6">
-              {trendMetricsConfig.map((metric) => (
-                <button
-                  key={metric.key}
-                  onClick={() => toggleTrendMetric(metric.key)}
-                  className={`px-4 py-2 rounded-lg font-medium transition-all border flex items-center gap-2 ${
-                    selectedTrendMetrics.includes(metric.key)
-                      ? "border-transparent text-white shadow-card"
-                      : "border-border bg-muted text-muted-foreground hover:bg-muted/80"
-                  }`}
-                  style={{
-                    backgroundColor: selectedTrendMetrics.includes(metric.key) ? metric.color : undefined,
-                  }}
-                >
-                  <span
-                    className="w-3 h-3 rounded-full"
-                    style={{ backgroundColor: metric.color }}
-                  />
-                  {metric.label}
-                </button>
-              ))}
-            </div>
-
             <ResponsiveContainer width="100%" height={500}>
               <LineChart data={trendData} margin={{ top: 20, right: 30, left: 20, bottom: 20 }}>
                 <CartesianGrid strokeDasharray="3 3" stroke="hsl(220, 13%, 91%)" />
@@ -13410,6 +13387,32 @@ const MerchantActivationDashboard = () => {
                     border: "1px solid hsl(220, 13%, 91%)",
                     borderRadius: "8px",
                   }}
+                />
+                <Legend
+                  content={() => (
+                    <div className="flex flex-wrap justify-center gap-4 mt-4">
+                      {trendMetricsConfig.map((metric) => {
+                        const isActive = selectedTrendMetrics.includes(metric.key);
+                        return (
+                          <button
+                            key={metric.key}
+                            onClick={() => toggleTrendMetric(metric.key)}
+                            className={`flex items-center gap-2 px-3 py-1.5 rounded-md transition-all cursor-pointer ${
+                              isActive ? "opacity-100" : "opacity-40"
+                            } hover:opacity-100`}
+                          >
+                            <span
+                              className="w-3 h-3 rounded-full"
+                              style={{ backgroundColor: metric.color }}
+                            />
+                            <span className={`text-sm font-medium ${isActive ? "text-card-foreground" : "text-muted-foreground line-through"}`}>
+                              {metric.label}
+                            </span>
+                          </button>
+                        );
+                      })}
+                    </div>
+                  )}
                 />
                 {trendMetricsConfig
                   .filter((metric) => selectedTrendMetrics.includes(metric.key))
